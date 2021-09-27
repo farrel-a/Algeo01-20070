@@ -15,7 +15,7 @@ public class Gauss {
         mat.isiMatrix();
         mat.tulisMatrix();
         System.out.println();
-
+        scanner.close();
 
     }
 
