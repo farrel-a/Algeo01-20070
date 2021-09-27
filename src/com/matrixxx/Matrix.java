@@ -48,7 +48,8 @@ public class Matrix {
         int i, j;
         for (i=0; i<this.Row; i++){
             for (j=0; j<this.Col; j++){
-                System.out.print(this.Mat[i][j] + " ");
+                String elem = String.format("%.3f", this.Mat[i][j]);
+                System.out.print(elem + " ");
             }
             System.out.println();
         }
@@ -134,6 +135,63 @@ public class Matrix {
     }
     public double getElmt(int row, int col){
         return this.Mat[row][col];
+    }
+
+    public Matrix matCofactor()
+    {
+        Matrix mc = new Matrix(this.getRow(), this.getCol());
+        int a = 0, b = 0; //index m1
+        int multiply = 1;
+        Determinant det = new Determinant();
+        double deter;
+        for (int i = 0;i<this.getRow();i++)
+        {
+            if (i%2==0){multiply = 1;}
+            else{multiply = -1;}
+            for (int j = 0;j<this.getCol();j++)
+            {
+                Matrix m1 = new Matrix(this.getRow()-1, this.getCol()-1);
+                for (int c = 0 ; c < this.getRow() ; c++)
+                {
+                    for (int d = 0 ; d < this.getCol() ; d++)
+                    {
+                        if (c!=i && d!=j)
+                        {
+                            m1.Mat[a][b] = this.getElmt(c, d);
+                            if (b+1<m1.getCol()){b++;}
+                            else if (a+1<m1.getRow()){a++;b=0;}
+                        }
+                    }
+                }
+                a = 0;b=0;
+                deter = det.detCofactor(m1);
+                mc.Mat[i][j] = multiply*deter;
+                multiply *=-1;
+            }
+        }
+        return mc;
+    }
+
+    public Matrix adj()
+    {
+        Matrix madj;
+        madj = this.matCofactor();
+        return madj.transpose();
+    }
+
+    public Matrix inverse()
+    {
+        Determinant det = new Determinant();
+        double deter = det.detCofactor(this);
+        Matrix Minverse = this.adj();
+        for (int i=0 ; i < Minverse.getRow() ; i++)
+        {
+            for (int j=0 ; j < Minverse.getCol() ; j++)
+            {
+                Minverse.Mat[i][j]*=(1/deter);
+            }
+        }
+        return Minverse;
     }
 
 

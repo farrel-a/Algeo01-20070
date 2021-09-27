@@ -16,6 +16,25 @@ public class Main {
         Determinant det = new Determinant();
         det.call(1, mat);
 
+        //adjoint tester
+        Matrix mat2;
+        mat2 = mat.adj();
+        mat2.tulisMatrix();
+
+        System.out.println();
+        
+        //Mat Cofactor tester
+        Matrix mat3;
+        mat3 = mat.matCofactor();
+        mat3.tulisMatrix();
+
+        System.out.println();
+
+        //Mat Inverse tester
+        Matrix mat4;
+        mat4 = mat.inverse();
+        mat4.tulisMatrix();
+
 
         // System.out.println("Masukkan jumlah baris:");
         // Scanner scanner = new Scanner(System.in);

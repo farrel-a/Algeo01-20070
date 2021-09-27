@@ -7,17 +7,17 @@ public class Determinant {
     {
         if (choice == 1)
         {
-            double det = cofactor(mat);
+            double det = detCofactor(mat);
             System.out.println("Determinan = " + det);
         }
 
         else if (choice == 2)
         {
-            
+            //reduksi baris determinan belum diisi
         }
     }
 
-    public double cofactor(Matrix m)
+    public double detCofactor(Matrix m)
     {
         int row = m.getRow();
         int col = m.getCol();
@@ -60,7 +60,7 @@ public class Determinant {
                         }
                     }
                     // res = ELMT(m,0,i)*determinant(m1);
-                    res = m.Mat[0][i]*cofactor(m1);
+                    res = m.Mat[0][i]*detCofactor(m1);
                     det+= res;
                 }
     
@@ -82,7 +82,7 @@ public class Determinant {
                             }
                         }
                     }
-                    res = -(m.getElmt(0,i)*cofactor(m1));
+                    res = -(m.getElmt(0,i)*detCofactor(m1));
                     det += res;
                 }
             }
