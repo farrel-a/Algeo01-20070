@@ -93,7 +93,7 @@ public class Matrix {
                 for (int j = 0 ; j<this.Col ; j++)
                 {
                     double data = colReader.nextDouble();
-                    Mat[i][j] = data;
+                    this.Mat[i][j] = data;
                 }
                 colReader.close();
             }

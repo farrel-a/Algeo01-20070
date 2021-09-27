@@ -8,7 +8,6 @@ public class Main {
 
         //file reader testing
         Matrix mat = new Matrix(); //tidak butuh argumen untuk konstruktor dengan file
-        mat.readMatrixFile();
         mat.tulisMatrix();
         System.out.println(mat.getRow());
         System.out.println(mat.getCol());
