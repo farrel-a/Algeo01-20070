@@ -11,6 +11,12 @@ public class Main {
         mat.tulisMatrix();
         System.out.println(mat.getRow());
         System.out.println(mat.getCol());
+
+        //Determinant tester
+        Determinant det = new Determinant();
+        det.call(1, mat);
+
+
         // System.out.println("Masukkan jumlah baris:");
         // Scanner scanner = new Scanner(System.in);
         // int baris = scanner.nextInt();
