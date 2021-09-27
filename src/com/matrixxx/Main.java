@@ -35,6 +35,17 @@ public class Main {
         mat4 = mat.inverse();
         mat4.tulisMatrix();
 
+        //Points tester user input
+        Points P = new Points(3);
+        P.readPoints();
+        P.writePoints();
+
+        System.out.println();
+
+        //Points tester file input
+        Points P2 = new Points();
+        P2.writePoints();
+
 
         // System.out.println("Masukkan jumlah baris:");
         // Scanner scanner = new Scanner(System.in);
