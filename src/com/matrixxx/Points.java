@@ -1,6 +1,5 @@
 package com.matrixxx;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.io.FileNotFoundException; 
 import java.io.File;  

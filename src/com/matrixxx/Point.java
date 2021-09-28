@@ -1,7 +1,5 @@
 package com.matrixxx;
 
-import java.util.Scanner;
-
 public class Point {
     double x;
     double y;

@@ -8,15 +8,18 @@ public class Matrix {
     double[][] Mat;
     private int Row;
     private int Col;
+    int tukar; //jumlah penukaran
 
     //KONSTRUKTOR
     Matrix (){      //konstruktor dengan file
         readMatrixFile();
+        this.tukar = 0;
     }
     Matrix(int Row, int Col){  //konstruktor tanpa file
         this.Row = Row;
         this.Col = Col;
         this.Mat = new double[Row][Col];
+        this.tukar = 0;
     }
     //getter dan setter
     public int getRow(){
@@ -31,6 +34,11 @@ public class Matrix {
 
     public void setCol(int Col) {
         this.Col = Col;
+    }
+
+    public int getTukar()
+    {
+        return this.tukar;
     }
 
     //Prosedur isi matrix
