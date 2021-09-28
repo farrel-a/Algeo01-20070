@@ -165,6 +165,7 @@ public class Matrix {
         for (int i=0; i<this.Col; i++){
             this.Mat[row2][i] = temp[i];
         }
+        this.tukar+=1;
     }
     public double getElmt(int row, int col){
         return this.Mat[row][col];
