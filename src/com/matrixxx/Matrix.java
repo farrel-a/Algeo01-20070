@@ -43,6 +43,23 @@ public class Matrix {
             }
         }
     }
+    //ABAIKAN BUAT GW DEBUG AJA INI BIAR CEPET -NANDO
+    public void isiOtomatis(){
+        double tempMat [][] =  { {2,0,8,0,8},
+                {0,1,0,4,6},
+                {-4,0,6,0,6},
+                {0,-2,0,3,-1},
+                {2,0,-4,0,-4},
+                {0,1,0,-2,0}};
+        this.Mat = tempMat;
+    }
+    public void isiOtomatis2(){
+        double tempMat [][] =  {{1,-1,0,0},
+                {1,1,0,-3},
+                {2,-1,0,1,},
+                {-1,2,0,-2}};
+        this.Mat = tempMat;
+    }
     //Prosedur tulis isi matrix
     public void tulisMatrix(){
         int i, j;
@@ -117,9 +134,9 @@ public class Matrix {
         }
         return TMat;
     }
-    public void bagiKons(int row, double x){
+    public void kaliKons(int row, double x){
         for (int j=0; j<this.Col; j++){
-            this.Mat[row-1][j] = this.Mat[row-1][j]/x;
+            this.Mat[row-1][j] = this.Mat[row-1][j]*x;
         }
     }
     public void tukarBaris(int row1, int row2){
@@ -134,6 +151,61 @@ public class Matrix {
     }
     public double getElmt(int row, int col){
         return this.Mat[row][col];
+    }
+    public int getIndexCol(int row, double x){
+        int j = 0;
+        boolean found = false;
+        while (!found && j<this.getCol()){
+            if (this.Mat[row][j]==x){
+                found = true;
+            }
+        }
+        return  j;
+    }
+    public boolean isOnRow (int row, double x){
+        boolean flag = false;
+        int j = 0;
+        while (!flag && j<this.getCol()){
+            if (this.Mat[row][j]== x){
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    public void roundMatrix ( double constraint){
+        for (int i=0; i<this.getRow(); i++){
+            for (int j=0; j<this.getCol(); j++){
+                if (Math.abs(this.getElmt(i, j)) < constraint){
+                    this.Mat[i][j] = 0;
+                }
+            }
+        }
+    }
+    public Matrix copyMatrix(){
+        Matrix copyMat = new Matrix(this.Row, this.Col);
+        for (int i=0; i<this.Row; i++){
+            for (int j = 0; j<this.Col; j++){
+                copyMat.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+        return copyMat;
+    }
+    public boolean isRowAllZero(int row){
+        int j = 0;
+        boolean flag = true;
+        if (this.Mat[row][j] != 0){
+            flag = false;
+        }
+        while (j<this.getCol()&& flag){
+            if (this.Mat[row][j] != 0){
+                flag = false;
+            }
+            else{
+                j++;
+            }
+        }
+        return flag;
     }
 
 
