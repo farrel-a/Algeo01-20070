@@ -45,6 +45,20 @@ public class Matrix {
     }
     //ABAIKAN BUAT GW DEBUG AJA INI BIAR CEPET -NANDO
     public void isiOtomatis(){
+        double tempMat [][] =  { {1,3,-2,0,2,0,0},
+                {2,6,-5,-2,4,-3,-1},
+                {0,0,5,10,0,15,5},
+                {2,6,0,8,4,18,6}};
+        this.Mat = tempMat;
+    }
+    public void isiOtomatis2(){
+        double tempMat [][] =  {{8,1,3,2,0},
+                {2,9,-1,-2,1},
+                {1,3,2,-1,2},
+                {1,0,6,4,3}};
+        this.Mat = tempMat;
+    }
+    public void isiOtomatis3(){
         double tempMat [][] =  { {2,0,8,0,8},
                 {0,1,0,4,6},
                 {-4,0,6,0,6},
@@ -53,23 +67,17 @@ public class Matrix {
                 {0,1,0,-2,0}};
         this.Mat = tempMat;
     }
-    public void isiOtomatis2(){
-        double tempMat [][] =  {{1,-1,0,0},
-                {1,1,0,-3},
-                {2,-1,0,1,},
-                {-1,2,0,-2}};
-        this.Mat = tempMat;
-    }
     //Prosedur tulis isi matrix
     public void tulisMatrix(){
         int i, j;
         for (i=0; i<this.Row; i++){
             for (j=0; j<this.Col; j++){
-                String elem = String.format("%.3f", this.Mat[i][j]);
-                System.out.print(elem + " ");
+                //String elem = String.format("%.3f", this.Mat[i][j]);
+                System.out.print(this.Mat[i][j] + " ");
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public void readMatrixFile()
@@ -264,6 +272,20 @@ public class Matrix {
             }
         }
         return Minverse;
+    }
+    public int FirstNonZero (int i){
+        int j = 0;
+        if (this.Mat[i][j]==0){
+            while (this.Mat[i][j] == 0 && j<this.Col){
+                j++;
+            }
+        }
+        if (j==this.Col){
+            return -1;
+        }
+        else {
+            return j;
+        }
     }
 
 

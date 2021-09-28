@@ -13,22 +13,83 @@ public class Gauss {
         System.out.println("Masukkan elemen matriks:");
 
         Matrix mat = new Matrix(baris, kolom);
-        mat.isiOtomatis2();
+        mat.isiOtomatis3();
         mat.tulisMatrix();
         System.out.println();
 
         ElimMaju(mat);
 
+        GaussSolver(mat);
+
+
+
 
     }
-     /*public static int Kemungkinan (Matrix matrix){
+     public static int Kemungkinan (Matrix matrix){
         int i = matrix.getRow()-1;
         if (matrix.isRowAllZero(i)){
             while (matrix.isRowAllZero(i)&&i>=0){
                 i--;
             }
         }
-     }*/
+        //mencari index pertama yg bukan 0 pada baris
+        int x = matrix.FirstNonZero(i);
+        if (x == matrix.getCol()-1){
+            return 3;
+        }
+        else {
+            int row = 0;
+            int flag = matrix.FirstNonZero(row);
+            System.out.println(flag);
+            if (flag == -1){
+                return 2;
+            }
+            if (matrix.Mat[row][flag] != 0){
+                while (row< matrix.getRow()&&matrix.Mat[row][flag]!=0&&flag< matrix.getCol()){
+                    row++;
+                    flag++;
+                }
+                System.out.println(row);
+                System.out.println(flag);
+                if (row == matrix.getCol()-1){
+                    return 1;
+                }
+                else{
+                    return 2;
+                }
+            }
+            else {
+                return 2;
+            }
+        }
+     }
+
+     public static void GaussSolver(Matrix matrix){
+        int x = Kemungkinan(matrix);
+        if (x==3){
+            System.out.println("Memiliki banyak solusi");
+        }
+        else if (x==1){
+            double[] solusi = new double[matrix.getCol()-1];
+            for (int sol = 0; sol<matrix.getCol()-1; sol++){
+                solusi[sol] = matrix.Mat[sol][matrix.getCol()-1];
+            }
+            for (int i = solusi.length-1; i >=0; i--){
+                for (int j = matrix.getCol()-2; j > i; j--){
+                    solusi[i] -= solusi[j]*matrix.Mat[i][j];
+                }
+            }
+            System.out.println("SOLUSI:");
+            for (int i=0; i< solusi.length; i++){
+                System.out.println("x"+(i+1)+" = "+solusi[i]);
+            }
+        }
+        else {
+            char[] kons = "rstuvwxyz".toCharArray();
+
+        }
+     }
+
 
 
     public static void ElimMaju(Matrix matrix){
@@ -64,21 +125,22 @@ public class Gauss {
             Arrays.sort(sortedZero);
             System.out.println(Arrays.toString(arrayZero));
             System.out.println(Arrays.toString(sortedZero));
+            if (!Arrays.equals(arrayZero, sortedZero)){
+                for (int i = k; i< arrayZero.length; i++){
+                    int x = 0;
+                    System.out.println(arrayZero[i]);
+                    while((arrayZero[i] != sortedZero[x])){
+                        x++;
+                    }
 
-
-            for (int i = k; i< arrayZero.length; i++){
-                int x = 0;
-                System.out.println(arrayZero[i]);
-                while((arrayZero[i] != sortedZero[x])){
-                    x++;
+                    System.out.println(Arrays.toString(sortedZero));
+                    System.out.println(i);
+                    System.out.println(x);
+                    sortedZero[x] = matrix.getCol();
+                    matrix.Mat[x] = temp.Mat[i];
+                    System.out.println(Arrays.toString(sortedZero));
                 }
-                System.out.println(Arrays.toString(sortedZero));
-                sortedZero[x] = matrix.getCol();
-                matrix.Mat[x] = temp.Mat[i];
-                System.out.println(Arrays.toString(sortedZero));
             }
-
-
 
             matrix.tulisMatrix();
             System.out.println();
