@@ -113,7 +113,7 @@ public class Main {
 
         else if (c==2) //file input - inverse
         {
-            Matrix mat = new Matrix("txt\\matrix.txt");
+            Matrix mat = new Matrix("..\\test\\matrix.txt");
             System.out.println("\nIsi Matriks:");
             mat.tulisMatrix(); 
             Determinant determinant = new Determinant();
@@ -140,6 +140,8 @@ public class Main {
 
     public static void determinan()
     {
+        String content="";
+        Save file = new Save("determinan.txt");
         int c;
         detSubMenu();
         Scanner sc = new Scanner(System.in);
@@ -174,27 +176,44 @@ public class Main {
                 Matrix mat = new Matrix(row,col);
                 mat.isiMatrix();
                 System.out.println("\nIsi Matriks:");
+                content += "Isi Matriks:\n";
                 mat.tulisMatrix(); 
+                content += mat.tulisMatrixString();
                 Determinant determinant = new Determinant();
                 double det = determinant.detReduction(mat);
                 mat = determinant.ElimMajuDet(mat);
                 System.out.println("Matriks Segitiga Atas");
+                content += "Matriks Segitiga Atas\n";
                 mat.tulisMatrix();
+                content += mat.tulisMatrixString();
+                content += "\n";
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet +"\n");
+                content += "Determinan = " + strdet +"\n";
+
+                file.write(content);
 
             }
             else if (c==2) //txt file input (matrix.txt) - reduction
             {
-                Matrix mat = new Matrix("txt\\matrix.txt");
+                Matrix mat = new Matrix("..\\test\\matrix.txt");
+                content +="Isi Matriks:\n";
                 System.out.println("\nIsi Matriks:");
+                content += mat.tulisMatrixString();
+                content += "\n";
                 mat.tulisMatrix(); 
                 Determinant determinant = new Determinant();
                 double det = determinant.detReduction(mat);
+                content += "Matriks Segitiga Atas:\n";
+                mat = determinant.ElimMajuDet(mat);
                 System.out.println("Matriks Segitiga Atas");
                 mat.tulisMatrix();
+                content+=mat.tulisMatrixString();
+                content+="\n";
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet+"\n");
+                content+="Determinan = " + strdet+"\n";
+                file.write(content);
             }
             else{System.out.println("Invalid input");}
         }
@@ -229,23 +248,32 @@ public class Main {
                 System.out.println("Silakan isi matrix: ");
                 Matrix mat = new Matrix(row,col);
                 mat.isiMatrix();
+                content += "Isi Matriks:\n";
                 System.out.println("\nIsi Matriks:");
                 mat.tulisMatrix(); 
+                content += mat.tulisMatrixString();
+                content += "\n";
                 Determinant determinant = new Determinant();
                 double det = determinant.detReduction(mat);
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet +"\n");
+                content += "Determinan = " + strdet +"\n";
+                file.write(content);
             }
             
             else if (c==2) //file input - cofactor
             {
-                Matrix mat = new Matrix("txt\\matrix.txt");
+                Matrix mat = new Matrix("..\\test\\matrix.txt");
+                content += "Isi Matriks:\n";
                 System.out.println("\nIsi Matriks:");
-                mat.tulisMatrix(); 
+                mat.tulisMatrix();
+                content += mat.tulisMatrixString();
                 Determinant determinant = new Determinant();
                 double det = determinant.detReduction(mat);
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet+"\n");
+                content +="Determinan = " + strdet+"\n";
+                file.write(content);
             }
 
             else{System.out.println("Invalid Input");}

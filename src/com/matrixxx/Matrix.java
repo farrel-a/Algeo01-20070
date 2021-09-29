@@ -89,6 +89,21 @@ public class Matrix {
         System.out.println();
     }
 
+    public String tulisMatrixString(){
+        int i, j;
+        String s ="";
+        for (i=0; i<this.Row; i++){
+            for (j=0; j<this.Col; j++){
+                String elem = String.format("%.3f", this.Mat[i][j]);
+                s += (elem + " ");
+            }
+            s += "\n";
+        }
+        s += "\n";
+
+        return s;
+    }
+
     public void readMatrixFile(String path)
     {
         this.Row = 0;
@@ -119,7 +134,7 @@ public class Matrix {
 
         //isi matrix
         this.Mat = new double[this.Row][this.Col];
-        File file = new File("txt\\matrix.txt");
+        File file = new File("..\\test\\matrix.txt");
         try{
             Scanner rowReader = new Scanner(file);
             for (int i = 0 ; i<this.Row ; i++)

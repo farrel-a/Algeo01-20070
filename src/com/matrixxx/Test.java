@@ -7,12 +7,12 @@ public class Test {
     public static void main(String[] args) {
 
         //determinant reduction tester
-        // Matrix mat = new Matrix("txt\\matrix.txt");
+        // Matrix mat = new Matrix("..\\test\\matrix.txt");
         // Determinant det = new Determinant();
         // det.call(1, mat);
 
         MLR mlr = new MLR();
-        mlr.callFile("txt\\mlrpoints.txt");
+        mlr.callFile("..\\test\\mlrpoints.txt");
 
 
         // System.out.println("Masukkan jumlah baris:");
