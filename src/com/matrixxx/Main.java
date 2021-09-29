@@ -7,9 +7,13 @@ public class Main {
     public static void main(String[] args) {
 
         //determinant reduction tester
-        Matrix mat = new Matrix();
-        Determinant det = new Determinant();
-        det.call(2, mat);
+        // Matrix mat = new Matrix("txt\\matrix.txt");
+        // Determinant det = new Determinant();
+        // det.call(1, mat);
+
+        MLR mlr = new MLR();
+        mlr.callFile("txt\\mlrpoints.txt");
+
 
         // System.out.println("Masukkan jumlah baris:");
         // Scanner scanner = new Scanner(System.in);
