@@ -123,9 +123,13 @@ public class MLR {
                 
             }
         }
+        System.out.println("Matriks Regresi Linear Berganda: ");
         mat.tulisMatrix(); //MATRIX MLR (Multiple Linear Regression)
         mat = mat.ElimMaju(mat);
+        System.out.println("Matriks Eselon: ");
         mat.tulisMatrix(); //Matrix reduksi
+        Gauss gauss = new Gauss();
+        gauss.GaussSolver(mat);
 
     }
 }
