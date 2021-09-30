@@ -40,7 +40,7 @@ public class Gauss {
         else {
             int row = 0;
             int flag = matrix.FirstNonZero(row);
-            System.out.println(flag);
+            // System.out.println(flag);
             if (flag == -1){
                 return 2;
             }
@@ -49,8 +49,8 @@ public class Gauss {
                     row++;
                     flag++;
                 }
-                System.out.println(row);
-                System.out.println(flag);
+                // System.out.println(row);
+                // System.out.println(flag);
                 if (row == matrix.getCol()-1){
                     return 1;
                 }
@@ -86,6 +86,32 @@ public class Gauss {
         }
         else {
             char[] kons = "rstuvwxyz".toCharArray();
+
+        }
+     }
+
+     public static double[] GaussSolverFunction(Matrix matrix){
+        int x = Kemungkinan(matrix);
+        double[] solusi = {};
+        if (x==3){
+            System.out.println("Memiliki banyak solusi");
+            return solusi;
+        }
+        else if (x==1){
+            solusi = new double[matrix.getCol()-1];
+            for (int sol = 0; sol<matrix.getCol()-1; sol++){
+                solusi[sol] = matrix.Mat[sol][matrix.getCol()-1];
+            }
+            for (int i = solusi.length-1; i >=0; i--){
+                for (int j = matrix.getCol()-2; j > i; j--){
+                    solusi[i] -= solusi[j]*matrix.Mat[i][j];
+                }
+            }
+            return solusi;
+        }
+        else {
+            char[] kons = "rstuvwxyz".toCharArray();
+            return solusi;
 
         }
      }
