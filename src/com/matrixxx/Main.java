@@ -48,6 +48,11 @@ public class Main {
 
             case 3:
             Inverse();
+            break;
+
+            case 5:
+            mlr();
+            break;
 
             case 6: break;
 
@@ -58,6 +63,22 @@ public class Main {
 
     }
 
+    public static void mlr()
+    {
+        int c=0;
+        showInputType();
+        showCommand();
+        if (c==1) //keyboard input - mlr
+        {
+
+        }
+        else if (c==2) //file input - mlr
+        {
+
+        }
+        else{System.out.println("Invalid Input");}
+    }
+
     public static void SPL()
     {
 
@@ -65,6 +86,8 @@ public class Main {
 
     public static void Inverse()
     {
+        Save file = new Save("inverse.txt");
+        String content = "";
         int c;
         showInputType();
         showCommand();
@@ -95,39 +118,53 @@ public class Main {
             Matrix mat = new Matrix(row,col);
             mat.isiMatrix();
             System.out.println("\nIsi Matriks:");
-            mat.tulisMatrix(); 
+            content += "Isi Matriks:\n";
+            mat.tulisMatrix();
+            content += mat.tulisMatrixString();
+            content+="\n";
             Determinant determinant = new Determinant();
             double det = determinant.detReduction(mat);
             if (closeZero(det))
             {
                 System.out.println("Matrix tidak bunya inverse/balikan");
+                content+="Matriks tidak punya inverse/balikan";
             }
             else
             {
                 System.out.println("\nMatrix Inverse/Balikan: ");
+                content+="Matriks Inverse/Balikan:\n";
                 mat = mat.inverse();
                 mat.tulisMatrix();
+                content+=mat.tulisMatrixString();
+                content+="\n";
             }
-
+            file.write(content);
         }
 
         else if (c==2) //file input - inverse
         {
             Matrix mat = new Matrix("..\\test\\matrix.txt");
             System.out.println("\nIsi Matriks:");
+            content+="Isi Matriks:\n";
             mat.tulisMatrix(); 
+            content+=mat.tulisMatrixString();content+="\n";
             Determinant determinant = new Determinant();
             double det = determinant.detCofactor(mat);
             if (closeZero(det))
             {
                 System.out.println("Determinan = 0\nMatrix tidak bunya inverse/balikan");
+                content+="Determinan = 0\nMatrix tidak bunya inverse/balikan\n";
             }
             else
             {
                 System.out.println("\nMatrix Inverse/Balikan: ");
+                content += "Matriks Inverse/Balikan:\n";
                 mat = mat.inverse();
                 mat.tulisMatrix();
+                content+=mat.tulisMatrixString();
+                content+="\n";
             }
+            file.write(content);
         }
         else{System.out.println("Invalid input");}
 
@@ -182,8 +219,8 @@ public class Main {
                 Determinant determinant = new Determinant();
                 double det = determinant.detReduction(mat);
                 mat = determinant.ElimMajuDet(mat);
-                System.out.println("Matriks Segitiga Atas");
-                content += "Matriks Segitiga Atas\n";
+                System.out.println("Matriks Segitiga Atas:");
+                content += "Matriks Segitiga Atas:\n";
                 mat.tulisMatrix();
                 content += mat.tulisMatrixString();
                 content += "\n";
@@ -206,7 +243,7 @@ public class Main {
                 double det = determinant.detReduction(mat);
                 content += "Matriks Segitiga Atas:\n";
                 mat = determinant.ElimMajuDet(mat);
-                System.out.println("Matriks Segitiga Atas");
+                System.out.println("Matriks Segitiga Atas:");
                 mat.tulisMatrix();
                 content+=mat.tulisMatrixString();
                 content+="\n";

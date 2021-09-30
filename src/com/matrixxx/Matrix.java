@@ -279,9 +279,12 @@ public class Matrix {
 
     public Matrix adj()
     {
+        if (this.getRow() == 1 && this.getCol() ==1){
+            this.Mat[0][0]=1; return this;}
+        else{
         Matrix madj;
         madj = this.matCofactor();
-        return madj.transpose();
+        return madj.transpose();}
     }
 
     public Matrix inverse()
