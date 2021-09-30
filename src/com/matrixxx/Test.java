@@ -7,12 +7,32 @@ public class Test {
     public static void main(String[] args) {
 
         //determinant reduction tester
-        // Matrix mat = new Matrix("txt\\matrix.txt");
+        // Matrix mat = new Matrix("..\\test\\matrix.txt");
         // Determinant det = new Determinant();
         // det.call(1, mat);
 
-        MLR mlr = new MLR();
-        mlr.callFile("txt\\mlrpoints.txt");
+        // MLR mlr = new MLR();
+        // mlr.callFile("..\\test\\mlrpoints.txt");
+
+        //Cramer Test User Input
+        // Matrix mat = new Matrix(3, 4);
+        // mat.isiMatrix();
+        // Cramer cramer = new Cramer();
+        // double[] solusi = cramer.call(mat);
+        // for (int i = 0 ; i<solusi.length ; i++)
+        // {
+        //     System.out.println("X"+(i+1)+" = " +solusi[i]);
+        // }
+
+        //Cramer Test File
+        Matrix mat = new Matrix("..\\test\\matrix.txt");
+        mat.tulisMatrix();
+        Cramer cramer = new Cramer();
+        double[] solusi = cramer.call(mat);
+        for (int i = 0 ; i<solusi.length ; i++)
+        {
+            System.out.println("X"+(i+1)+" = " +solusi[i]);
+        }
 
 
         // System.out.println("Masukkan jumlah baris:");
