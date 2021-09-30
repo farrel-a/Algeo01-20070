@@ -34,6 +34,14 @@ public class Main {
         System.out.print(">>> ");
     }
 
+    public static void showSubSPLMenu()
+    {
+        System.out.println("1. Metode Eliminasi Gauss");
+        System.out.println("2. Metode Eliminasi Gauss-Jordan");
+        System.out.println("3. Metode Matriks Balikan");
+        System.out.println("4. Kaidah Cramer");
+    }
+
     public static void mainMenuRoute(int c)
     {
         switch (c)
@@ -213,8 +221,118 @@ public class Main {
         else{System.out.println("Invalid Input");}
     }
 
+    public static void cramer()
+    {
+        showInputType();
+        showCommand();
+        int c = 0;
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1)
+        {
+            int row,col;
+            System.out.print("Masukkan jumlah baris: ");
+            row = sc.nextInt();
+            System.out.print("Masukkan jumlah kolom: ");
+            col = sc.nextInt();
+            if (row == col-1)
+            {
+                System.out.println("Masukkan Matriks: ");
+                Matrix mat = new Matrix(row, col);
+                mat.isiMatrix();
+                Save file = new Save("CramerResult.txt");
+                String content = "";
+                Cramer cramer = new Cramer();
+                double[] solusi = cramer.call(mat);
+                
+                System.out.println("Matriks: ");
+                content+="Matriks: \n";
+
+                mat.tulisMatrix();System.out.println();
+                content+=mat.tulisMatrixString(); content+="\n";
+                content+="\nSolusi:\n";
+                for (int i = 0 ; i<solusi.length ; i++)
+                {
+                    System.out.println("X"+(i+1)+" = " +solusi[i]);
+                    content+=("X"+(i+1)+" = " +solusi[i]+"\n");
+                }
+                file.write(content);
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("Tidak bisa menggunakan Kaidah Cramer");
+            }
+        }
+
+        else if (c==2)
+        {
+            Matrix mat = new Matrix("..\\test\\matrix.txt");
+            if (mat.getRow()==(mat.getCol()-1))
+            {
+                Save file = new Save("CramerResult.txt");
+                String content = "";
+                Cramer cramer = new Cramer();
+                double[] solusi = cramer.call(mat);
+                
+                System.out.println("Matriks: ");
+                content+="Matriks: \n";
+
+                mat.tulisMatrix();System.out.println();
+                content+=mat.tulisMatrixString(); content+="\n";
+                content+="\nSolusi:\n";
+                for (int i = 0 ; i<solusi.length ; i++)
+                {
+                    System.out.println("X"+(i+1)+" = " +solusi[i]);
+                    content+=("X"+(i+1)+" = " +solusi[i]+"\n");
+                }
+                file.write(content);
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("Tidak bisa menggunakan Kaidah Cramer");
+            }
+        }
+
+        else{
+            System.out.println("Invalid Input");
+        }
+    }
+
     public static void SPL()
     {
+        //SPL ISI DI SINI
+        int choice = 0;
+        Scanner sc = new Scanner(System.in);
+        showSubSPLMenu();
+        showCommand();
+        choice = sc.nextInt();
+
+        switch (choice)
+        {
+            case 1:
+            //GAUSS DI SINI
+            break;
+
+            case 2:
+            //GAUSS JORDAN DI SINI
+            break;
+
+            case 3:
+            //SPL MATRIKS BALIKAN DI SINI
+            break;
+
+            case 4:
+            //CRAMER DI SINI
+            cramer();
+            break;
+
+            default:
+            System.out.println("Invalid Input");
+            break;
+
+        }
 
     }
 
