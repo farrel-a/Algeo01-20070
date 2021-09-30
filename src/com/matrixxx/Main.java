@@ -59,6 +59,7 @@ public class Main {
             break;
 
             case 4:
+            Interpolasi();
             break;
 
             case 5:
@@ -299,6 +300,68 @@ public class Main {
             System.out.println("Invalid Input");
         }
     }
+    public static void ElimGauss(){
+        int c;
+        showInputType();
+        showCommand();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1){ //keyboard input
+            Save file = new Save("ElimGauss.txt");
+            String content = "";
+
+            System.out.println("Masukkan jumlah baris:");
+            Scanner scanner = new Scanner(System.in);
+            int baris = scanner.nextInt();
+            System.out.println("Masukkan jumlah kolom:");
+            int kolom = scanner.nextInt();
+            System.out.println("Masukkan elemen matriks:");
+
+            Matrix mat = new Matrix(baris, kolom);
+            mat.isiMatrix();
+            content += "Akan dicari penyelesaian SPL (Gauss) untuk matriks berikut ini \n";
+            mat.tulisMatrix();
+            System.out.println();
+            Gauss.ElimMaju(mat);
+            System.out.println("Matriks Eselon: ");
+            content+="\nMatriks Eselon: \n";
+            mat.tulisMatrix();
+            System.out.println();
+            content+=mat.tulisMatrixString(); content+="\n";
+            Gauss.GaussSolver(mat, "SPL", content, file);
+
+        }
+    }
+
+    public static void GaussJordan(){
+        int c;
+        showInputType();
+        showCommand();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1){ //keyboard input
+            Save file = new Save("ElimGaussJordan.txt");
+            String content = "";
+            Gauss gauss = new Gauss();
+
+            System.out.println("Masukkan jumlah baris:");
+            Scanner scanner = new Scanner(System.in);
+            int baris = scanner.nextInt();
+            System.out.println("Masukkan jumlah kolom:");
+            int kolom = scanner.nextInt();
+            System.out.println("Masukkan elemen matriks:");
+
+            Matrix mat = new Matrix(baris, kolom);
+            mat.isiMatrix();
+            mat.tulisMatrix();
+            System.out.println();
+
+            Gauss.ElimMaju(mat);
+            Gauss.reducedEF(mat);
+            Gauss.GaussSolver(mat, "SPL", content, file);
+
+        }
+    }
 
     public static void SPL()
     {
@@ -312,11 +375,11 @@ public class Main {
         switch (choice)
         {
             case 1:
-            //GAUSS DI SINI
+            ElimGauss();
             break;
 
             case 2:
-            //GAUSS JORDAN DI SINI
+            GaussJordan();
             break;
 
             case 3:
@@ -334,6 +397,32 @@ public class Main {
 
         }
 
+    }
+    public static void Interpolasi(){
+        int c;
+        showInputType();
+        showCommand();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1){
+            Save file = new Save("regresi.txt");
+            String content = "";
+
+            Scanner scanner = new Scanner(System.in);
+            int n = scanner.nextInt();
+            scanner.close();
+
+            Points points = new Points(n);
+            points.readPoints();
+            points.writePointstoFile(content);
+
+            Matrix interMatrix;
+            interMatrix = points.toMatrix();
+
+            Gauss.ElimMaju(interMatrix);
+            Gauss.GaussSolver(interMatrix, "polinom", content, file);
+
+        }
     }
 
     public static void Inverse()

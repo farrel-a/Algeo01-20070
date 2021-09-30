@@ -2,6 +2,7 @@ package com.matrixxx;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Gauss {
@@ -21,7 +22,7 @@ public class Gauss {
         ElimMaju(mat);
         reducedEF(mat);
         mat.tulisMatrix();
-        GaussSolver(mat, "SPL");
+        //GaussSolver(mat, "SPL");
 
 
 
@@ -66,10 +67,19 @@ public class Gauss {
         }
     }
 
-    public static void GaussSolver(Matrix matrix, String write){
+    public static void GaussSolver(Matrix matrix, String write, String toFile, Save file){
         int x = Kemungkinan(matrix);
         if (x==3){
-            System.out.println("Tidak Memiliki Solusi!");
+            if (write == "SPL"){
+                System.out.println("SPLTidak Memiliki Solusi!");
+                toFile += "Tidak Memiliki Solusi!\n";
+                file.write(toFile);
+            }
+            else {
+                System.out.println("Polinom Interpolasi tidak dapat dicari untuk titik-titik ini!");
+                toFile += "Polinom Interpolasi tidak dapat dicari untuk titik-titik ini!\n";
+                file.write(toFile);
+            }
         }
         else if (x==1){
             double[] solusi = new double[matrix.getCol()-1];
@@ -83,13 +93,18 @@ public class Gauss {
             }
             if (write == "SPL"){
                 System.out.println("SOLUSI:");
+                toFile += "\nSOLUSI:\n";
                 for (int i=0; i< solusi.length; i++){
                     System.out.println("x"+(i+1)+" = "+solusi[i]);
+                    toFile += "x"+(i+1)+" = "+solusi[i] +"\n";
                 }
+                file.write(toFile);
             }
             else if (write == "polinom"){
                 System.out.println("Polinom interpolasi yang melewati titik-titik tersebut adalah:");
+                toFile += "Polinom interpolasi yang melewati titik-titik tersebut adalah:\n";
                 System.out.print("P(x) = ");
+                toFile += "P(x) = ";
                 String tanda;
                 for (int i=0; i<solusi.length; i++){
                     if  (solusi[i]!=0){
@@ -105,14 +120,23 @@ public class Gauss {
                             }
                         }
                         if (i!=0){
-                            System.out.print(tanda + Math.abs(solusi[i]) + "x^" + i);
+                            if (Math.abs(solusi[i]) != 1){
+                                System.out.print(tanda + Math.abs(solusi[i]) + "x^" + i);
+                                toFile += tanda + Math.abs(solusi[i]) + "x^" + i;
+                            }
+                            else {
+                                System.out.print(tanda + "x^" + i);
+                                toFile += tanda + "x^" + i;
+                            }
                         }
                         else {
                             System.out.print(tanda + Math.abs(solusi[i]));
+                            toFile += tanda + Math.abs(solusi[i]);
                         }
                     }
                     //System.out.print(solusi[i]);
                 }
+                toFile += "\n";
                 System.out.println();
                 boolean flag = true;
                 double solve;
@@ -120,24 +144,30 @@ public class Gauss {
                 while (flag){
                     double sum = 0;
                     System.out.print("Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ");
+                    toFile += "Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ";
                     solve = sc.nextDouble();
+                    toFile += solve + "\n";
                     if (solve == 999.999){
                         System.out.println("--------------------KEMBALI KE MENU UTAMA-------------------------");
+                        toFile += "--------------------KEMBALI KE MENU UTAMA-------------------------\n";
                         flag = true;
                         break;
                     }
                     else {
                         System.out.print("P("+solve+") = ");
+                        toFile += "P("+solve+") = ";
                         for (int i = 0; i<solusi.length; i++){
                             sum += solusi[i]*Math.pow(solve, i);
                         }
                     }
                     System.out.println(sum);
+                    toFile += sum + "\n";
                 }
+                file.write(toFile);
             }
         }
         else {
-            //mencari row pertama dari bawah yang elemennya tidak 0
+            //mencari row pertama dari bawah yang elemennya tidak 0 (solusi banyak)
             int idxNotZero = matrix.getRow()-1;
             while (matrix.isRowAllZero(idxNotZero)&&idxNotZero>=0){
                 idxNotZero--;
@@ -238,8 +268,10 @@ public class Gauss {
             for (int i = 0; i<= matrix.getCol()-2; i++){
                 if(solusi[i][matrix.getCol()-countNonZero-1]==0 && solusi[i][matrix.getCol()-countNonZero]==0){
                     System.out.print("x"+(i+1)+" = ");
+                    toFile += "x"+(i+1)+" = ";
                     if (solusi[i][matrix.getCol()-countNonZero+2]!=0){
                         System.out.print(df.format(solusi[i][matrix.getCol()-countNonZero+2]));
+                        toFile += df.format(solusi[i][matrix.getCol()-countNonZero+2]);
                     }
 
                     for (int j=0; j<=xParam-1;j++){
@@ -247,26 +279,35 @@ public class Gauss {
                         if (solusi[i][j]!=0){
                             if (-(solusi[i][j])>0 && (output!=0 || solusi[i][matrix.getCol()-countNonZero+2]!=0)){
                                 System.out.print("+");
+                                toFile += "+";
                             }
                             if (-(solusi[i][j])==-1){
                                 System.out.print("-");
+                                toFile += "-";
                             }
                             if (Math.abs(solusi[i][j])!=1){
                                 System.out.print(df.format(-(solusi[i][j])));
+                                toFile += df.format(-(solusi[i][j]));
                             }
                             System.out.print(kons[j]);
+                            toFile += kons[j];
                             output++;
                         }
                     }
                     System.out.println();
+                    toFile += "\n";
                 }
                 else if (solusi[i][matrix.getCol()-countNonZero-1]==1 && solusi[i][matrix.getCol()-countNonZero]==0){
                     System.out.print("x"+(i+1)+" = "+kons[(int)solusi[i][matrix.getCol()-countNonZero+1]]);
+                    toFile += "x"+(i+1)+" = "+kons[(int)solusi[i][matrix.getCol()-countNonZero+1]];
                     System.out.println();
+                    toFile += "\n";
                 }
                 else {
                     System.out.print("x"+(i+1)+" = "+df.format(solusi[i][matrix.getCol()-countNonZero+2]));
+                    toFile += "x"+(i+1)+" = "+df.format(solusi[i][matrix.getCol()-countNonZero+2]);
                     System.out.println();
+                    toFile += "\n";
                 }
             }
 

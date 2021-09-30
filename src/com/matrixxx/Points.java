@@ -47,6 +47,17 @@ public class Points {
         }
     }
 
+    public void writePointstoFile(String toFile){
+        for (int i = 0 ; i<this.points.length ; i++)
+        {
+            String x = String.format("%.3f", getElmt(i).getX()); //3 decimals floating point
+            String y = String.format("%.3f", getElmt(i).getY());
+            toFile +="("+ x + " , " + y+")\n";
+        }
+
+    }
+
+
     public void readPointsFile(String filepath)
     {
         File file = new File(filepath);
