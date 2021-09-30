@@ -20,13 +20,13 @@ public class Gauss {
 
         ElimMaju(mat);
 
-        GaussSolver(mat);
+        GaussSolver(mat, "SPL");
 
 
 
 
     }
-     public static int Kemungkinan (Matrix matrix){
+    public static int Kemungkinan (Matrix matrix){
         int i = matrix.getRow()-1;
         if (matrix.isRowAllZero(i)){
             while (matrix.isRowAllZero(i)&&i>=0){
@@ -63,14 +63,15 @@ public class Gauss {
                 return 2;
             }
         }
-     }
+    }
 
-     public static void GaussSolver(Matrix matrix){
+    public static void GaussSolver(Matrix matrix, String write){
         int x = Kemungkinan(matrix);
         if (x==3){
             System.out.println("Tidak Memiliki Solusi!");
         }
-        else if (x==1 /*|| x == 2*/){
+
+        else if (x==1){
             double[] solusi = new double[matrix.getCol()-1];
             for (int sol = 0; sol<matrix.getCol()-1; sol++){
                 solusi[sol] = matrix.Mat[sol][matrix.getCol()-1];
@@ -80,9 +81,59 @@ public class Gauss {
                     solusi[i] -= solusi[j]*matrix.Mat[i][j];
                 }
             }
-            System.out.println("SOLUSI:");
-            for (int i=0; i< solusi.length; i++){
-                System.out.println("x"+(i+1)+" = "+solusi[i]);
+            if (write == "SPL"){
+                System.out.println("SOLUSI:");
+                for (int i=0; i< solusi.length; i++){
+                    System.out.println("x"+(i+1)+" = "+solusi[i]);
+                }
+            }
+            else if (write == "polinom"){
+                System.out.println("Polinom interpolasi yang melewati titik-titik tersebut adalah:");
+                System.out.print("P(x) = ");
+                String tanda;
+                for (int i=0; i<solusi.length; i++){
+                    if  (solusi[i]!=0){
+                        if (solusi[i] < 0 ){
+                            tanda = " - ";
+                        }
+                        else {
+                            if (i == 0){
+                                tanda = " ";
+                            }
+                            else {
+                                tanda = " + ";
+                            }
+                        }
+                        if (i!=0){
+                            System.out.print(tanda + Math.abs(solusi[i]) + "x^" + i);
+                        }
+                        else {
+                            System.out.print(tanda + Math.abs(solusi[i]));
+                        }
+                    }
+                    //System.out.print(solusi[i]);
+                }
+                System.out.println();
+                boolean flag = true;
+                double solve;
+                Scanner sc = new Scanner(System.in);
+                while (flag){
+                    double sum = 0;
+                    System.out.print("Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ");
+                    solve = sc.nextDouble();
+                    if (solve == 999.999){
+                        System.out.println("--------------------KEMBALI KE MENU UTAMA-------------------------");
+                        flag = true;
+                        break;
+                    }
+                    else {
+                        System.out.print("P("+solve+") = ");
+                        for (int i = 0; i<solusi.length; i++){
+                            sum += solusi[i]*Math.pow(solve, i);
+                        }
+                    }
+                    System.out.println(sum);
+                }
             }
         }
         else {
@@ -104,6 +155,7 @@ public class Gauss {
             double[][] solusi = new double[matrix.getCol()-1][matrix.getCol()-countNonZero+3];
             boolean[] declared = new boolean[matrix.getCol()-1];
             System.out.println(Arrays.toString(declared));
+            System.out.println(Arrays.deepToString(solusi));
 
             int xParam = 0;
             int cr2 = countNonZero-1;
@@ -123,7 +175,7 @@ public class Gauss {
             while(xParam < matrix.getCol()-countNonZero-1){
                 cc2 = matrix.getCol()-2;
                 while(cc2>=0&&xParam< matrix.getCol()-countNonZero-1){
-                    if(declared[cc2]==false&&matrix.Mat[cr2][cc2]!=0){
+                    if(!declared[cc2] && matrix.Mat[cr2][cc2]!=0){
                         if(matrix.NonZeroElmt(cr2, matrix.getCol()-2)==1){
 
                             declared[cc2] = true;
@@ -217,15 +269,13 @@ public class Gauss {
 
 
         }
-     }
+    }
 
 
 
     public static void ElimMaju(Matrix matrix){
         int col = matrix.getCol();
         int row = matrix.getRow();
-
-
 
         for (int k=0; k<row; k++){
             //mencari dan mengurutkan row yang memiliki nol dari kiri
@@ -245,15 +295,9 @@ public class Gauss {
                 arrayZero[i] = j;
             }
             //mengurutkan matriks dari menjadi matriks eselon
-            System.out.println(Arrays.toString(arrayZero));
-            System.out.println();
             Matrix temp = matrix.copyMatrix();
-            temp.tulisMatrix();
-            System.out.println();
             int[] sortedZero = Arrays.copyOf(arrayZero, arrayZero.length);
             Arrays.sort(sortedZero);
-            System.out.println(Arrays.toString(arrayZero));
-            System.out.println(Arrays.toString(sortedZero));
             if (!Arrays.equals(arrayZero, sortedZero)){
                 for (int i = k; i< arrayZero.length; i++){
                     int x = 0;
@@ -261,29 +305,13 @@ public class Gauss {
                     while((arrayZero[i] != sortedZero[x])){
                         x++;
                     }
-
-                    System.out.println(Arrays.toString(sortedZero));
-                    System.out.println(i);
-                    System.out.println(x);
                     sortedZero[x] = matrix.getCol();
                     matrix.Mat[x] = temp.Mat[i];
-                    System.out.println(Arrays.toString(sortedZero));
                 }
             }
 
-            matrix.tulisMatrix();
-            System.out.println();
-/*            int IdxMax = k;
-            int ElMax = (int)matrix.getElmt(k, k);
-            for (int i=k+1; i< row; i++){
-                if (Math.abs(matrix.Mat[i][k] )> ElMax){
-                    ElMax = (int)matrix.Mat[i][k];
-                    IdxMax = i;
-                }
-            }
-            if (IdxMax != k){
-                matrix.tukarBaris(k, IdxMax);
-            }*/
+
+
             if (col>row){
                 for (int i = k+1; i<row; i++){
                     double divider;
@@ -342,12 +370,7 @@ public class Gauss {
 
             }
 
-            matrix.tulisMatrix();
-            System.out.println();
-
         }
-        matrix.tulisMatrix();
-        System.out.println();
         for (int r = 0; r< matrix.getRow(); r++){
             int c = 0;
             if (matrix.Mat[r][c] == 0){
@@ -367,26 +390,13 @@ public class Gauss {
             }
             //else berarti barisnya isinya 0 semua
         }
-       /* for (int r = 0; r< matrix.getRow(); r++){
-            double divider = matrix.Mat[r][r];
-            for (int c = 0; c< matrix.getCol(); c++){
-                matrix.Mat[r][c] = matrix.Mat[r][c]/divider;
-            }
-        }*/
+
         Rounder(matrix, 1e-9);
         System.out.println("Matriks Eselon adalah:");
         System.out.println();
         matrix.tulisMatrix();
     }
 
-
-
-
-   /* public static  double[] BackSub (Matrix matrix){
-        int unknown = matrix.getCol();
-        double [] result = new double[unknown];
-
-    }*/
     public static void Rounder ( Matrix matrix, double constraint){
         for (int i=0; i<matrix.getRow(); i++){
             for (int j=0; j<matrix.getCol(); j++){
@@ -397,3 +407,4 @@ public class Gauss {
         }
     }
 }
+

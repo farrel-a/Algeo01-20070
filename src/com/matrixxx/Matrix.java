@@ -81,10 +81,10 @@ public class Matrix {
         this.Mat = tempMat;
     }
     public void isiOtomatis4(){
-        double tempMat [][] =  { {8,1,3,2,0},
-                {2,9,-1,-2,1},
-                {1,3,2,-1,2},
-                {1,0,6,4,3}};
+        double tempMat [][] =  { {1,-1,2,-1,-1},
+                {2,1,-2,-2,-2},
+                {-1,2,-4,1,1},
+                {3,0,0,-3,-3}};
         this.Mat = tempMat;
     }
     //Prosedur tulis isi matrix
@@ -109,7 +109,7 @@ public class Matrix {
             File file = new File(path);
             Scanner reader = new Scanner(file);
             int i = 0;
-            while (reader.hasNextLine()) 
+            while (reader.hasNextLine())
             {
                 this.Row+=1;
                 Scanner colReader = new Scanner(reader.nextLine());
@@ -121,12 +121,12 @@ public class Matrix {
                 i += 1;
             }
             reader.close();
-            } 
-        catch (FileNotFoundException e) 
-            {
-                System.out.println("File not found.");
-                e.printStackTrace();
-            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
 
         //isi matrix
         this.Mat = new double[this.Row][this.Col];
@@ -145,11 +145,11 @@ public class Matrix {
             }
             rowReader.close();
         }
-        catch (FileNotFoundException e) 
-            {
-                System.out.println("File not found.");
-                e.printStackTrace();
-            }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
 
     }
 
@@ -378,7 +378,7 @@ public class Matrix {
                 return 2;
             }
         }
-     }
+    }
 
 
     public Matrix ElimMaju(Matrix matrix){
@@ -542,11 +542,11 @@ public class Matrix {
 
 
 
-   /* public static  double[] BackSub (Matrix matrix){
-        int unknown = matrix.getCol();
-        double [] result = new double[unknown];
+    /* public static  double[] BackSub (Matrix matrix){
+         int unknown = matrix.getCol();
+         double [] result = new double[unknown];
 
-    }*/
+     }*/
     public void Rounder ( Matrix matrix, double constraint){
         for (int i=0; i<matrix.getRow(); i++){
             for (int j=0; j<matrix.getCol(); j++){
@@ -556,4 +556,6 @@ public class Matrix {
             }
         }
     }
+
+
 }
