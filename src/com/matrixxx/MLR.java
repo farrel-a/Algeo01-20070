@@ -129,7 +129,7 @@ public class MLR {
         System.out.println("Matriks Eselon: ");
         mat.tulisMatrix(); //Matrix reduksi
         Gauss gauss = new Gauss();
-        gauss.GaussSolver(mat);
+        gauss.GaussSolver(mat, "SPL");
 
     }
 }

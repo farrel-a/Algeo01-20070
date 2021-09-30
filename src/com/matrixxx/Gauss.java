@@ -14,12 +14,13 @@ public class Gauss {
         System.out.println("Masukkan elemen matriks:");
 
         Matrix mat = new Matrix(baris, kolom);
-        mat.isiOtomatis4();
+        mat.isiOtomatis();
         mat.tulisMatrix();
         System.out.println();
 
         ElimMaju(mat);
-
+        reducedEF(mat);
+        mat.tulisMatrix();
         GaussSolver(mat, "SPL");
 
 
@@ -41,7 +42,6 @@ public class Gauss {
         else {
             int row = 0;
             int flag = matrix.FirstNonZero(row);
-            System.out.println(flag);
             if (flag == -1){
                 return 2;
             }
@@ -50,8 +50,6 @@ public class Gauss {
                     row++;
                     flag++;
                 }
-                System.out.println(row);
-                System.out.println(flag);
                 if (row == matrix.getCol()-1){
                     return 1;
                 }
@@ -172,29 +170,32 @@ public class Gauss {
             }
 
             //mencari variabel lain yang juga merupakan variabel parametrik
-            while(xParam < matrix.getCol()-countNonZero-1){
-                cc2 = matrix.getCol()-2;
-                while(cc2>=0&&xParam< matrix.getCol()-countNonZero-1){
-                    if(!declared[cc2] && matrix.Mat[cr2][cc2]!=0){
-                        if(matrix.NonZeroElmt(cr2, matrix.getCol()-2)==1){
+            while(xParam < matrix.getCol()-countNonZero-1) {
+                cc2 = matrix.getCol() - 2;
+                while (cc2 >= 0 && xParam < matrix.getCol() - countNonZero - 1) {
+                    if (!declared[cc2] && matrix.Mat[cr2][cc2] != 0) {
+                        if (matrix.NonZeroElmt(cr2, matrix.getCol() - 2) == 1) {
 
                             declared[cc2] = true;
-                            solusi[cc2][matrix.getCol()-countNonZero] = 1;
-                            solusi[cc2][matrix.getCol()-countNonZero+2] = matrix.Mat[cr2][matrix.getCol()-1]/matrix.Mat[cr2][cc2];
+                            solusi[cc2][matrix.getCol() - countNonZero] = 1;
+                            solusi[cc2][matrix.getCol() - countNonZero + 2] = matrix.Mat[cr2][matrix.getCol() - 1] / matrix.Mat[cr2][cc2];
 
-                        }
-                        else if (cc2!= matrix.FirstNonZero(cr2)&& matrix.fRowIsKolomAllZero(cr2+1,cc2)){
+                        } else if (cc2 != matrix.FirstNonZero(cr2) && matrix.fRowIsKolomAllZero(cr2 + 1, cc2)) {
                             declared[cc2] = true;
-                            solusi[cc2][matrix.getCol()-countNonZero-1]=1;
-                            solusi[cc2][matrix.getCol()-countNonZero+1] = xParam;
+                            solusi[cc2][matrix.getCol() - countNonZero - 1] = 1;
+                            solusi[cc2][matrix.getCol() - countNonZero + 1] = xParam;
                             xParam++;
                         }
                     }
                     cc2--;
                 }
-                cc2--;
+                cr2--;
             }
+
+
+
             System.out.println(Arrays.toString(declared));
+            System.out.println(Arrays.deepToString(solusi));
 
             cr2 = countNonZero-1;
             cc2 = 0;
@@ -406,5 +407,25 @@ public class Gauss {
             }
         }
     }
+//membuat matriks eselon tereduksi (eliminasi gauss Jordan)
+    public static void reducedEF (Matrix mat){
+        for (int i = mat.getRow()-1; i>0; i--){
+            boolean flag = false;
+            int j = 0;
+            while (!flag && j< mat.getCol()){
+                if (mat.Mat[i][j]==1){
+                    for (int n = i-1; n>=0; n--){
+                        double multiplier = -(mat.Mat[n][j]/mat.Mat[i][j]);
+                        for (int m = 0; m< mat.getCol(); m++){
+                            mat.Mat[n][m] += mat.Mat[i][m] * multiplier;
+                        }
+                    }
+                    flag = true;
+                }
+                j++;
+            }
+        }
+    }
+
 }
 

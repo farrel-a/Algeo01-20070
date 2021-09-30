@@ -58,26 +58,23 @@ public class Matrix {
     }
     //ABAIKAN BUAT GW DEBUG AJA INI BIAR CEPET -NANDO
     public void isiOtomatis(){
-        double tempMat [][] =  { {1,3,-2,0,2,0,0},
-                {2,6,-5,-2,4,-3,-1},
-                {0,0,5,10,0,15,5},
-                {2,6,0,8,4,18,6}};
-        this.Mat = tempMat;
-    }
-    public void isiOtomatis2(){
-        double tempMat [][] =  {{8,1,3,2,0},
+        double tempMat [][] =  { {8,1,3,2,0},
                 {2,9,-1,-2,1},
                 {1,3,2,-1,2},
                 {1,0,6,4,3}};
         this.Mat = tempMat;
     }
+    public void isiOtomatis2(){
+        double tempMat [][] =  {{1,-1,0,0,1,3},
+                {1,1,0,-3,0,6},
+                {2,-1,0,1,-1,5},
+                {-1,2,0,-2,-1,-1}};
+        this.Mat = tempMat;
+    }
     public void isiOtomatis3(){
-        double tempMat [][] =  { {2,0,8,0,8},
-                {0,1,0,4,6},
-                {-4,0,6,0,6},
-                {0,-2,0,3,-1},
-                {2,0,-4,0,-4},
-                {0,1,0,-2,0}};
+        double tempMat [][] =  { {0,1,0,0,1,0,2},
+                {0,0,0,1,1,0,-1},
+                {0,1,0,0,0,1,1}};
         this.Mat = tempMat;
     }
     public void isiOtomatis4(){
