@@ -8,8 +8,8 @@ public class Points {
     Point[] points; //array of Point
 
     //Konstruktor
-    Points(){
-        readPointsFile(); //dengan file points.txt
+    Points(String filepath){
+        readPointsFile(filepath); //dengan file points.txt
     }
     Points(int n)
     {
@@ -47,9 +47,9 @@ public class Points {
         }
     }
 
-    public void readPointsFile()
+    public void readPointsFile(String filepath)
     {
-        File file = new File("txt\\points.txt");
+        File file = new File(filepath);
         try{
             Scanner lineReader = new Scanner(file);
             int n = 0;

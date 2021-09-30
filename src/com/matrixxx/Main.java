@@ -3,104 +3,268 @@ package com.matrixxx;
 import java.util.Scanner;
 
 public class Main {
-
-    public static void main(String[] args) {
-
-        //tester point
-
-        System.out.println("Program interpolasi polinom");
-        System.out.println("masukkan jumlah titik yang ingin dicari (n): ");
+    public static void main(String[] args)
+    {
+        int choice = 0;
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        do
+        {
+            showMainMenu();
+            showCommand();
+            choice = sc.nextInt();
+            mainMenuRoute(choice);
+        }
+        while(choice != 6);
         sc.close();
+    }
 
-        Points titik = new Points(n);
-        titik.readPoints();
-        titik.writePoints();
+    public static void showMainMenu()
+    {
+        System.out.println("MENU");
+        System.out.println("1. Sistem Persamaan Linear");
+        System.out.println("2. Determinan");
+        System.out.println("3. Matriks Balikan");
+        System.out.println("4. Interpolasi Polinom");
+        System.out.println("5. Regresi Linear Berganda");
+        System.out.println("6. Keluar");
+    }
 
-        //determinant reduction tester
-       /* Matrix mat = new Matrix();
-        Determinant det = new Determinant();
-        det.call(2, mat);*/
+    public static void showCommand()
+    {
+        System.out.print(">>> ");
+    }
 
-        // System.out.println("Masukkan jumlah baris:");
-        // Scanner scanner = new Scanner(System.in);
-        // int baris = scanner.nextInt();
-        // System.out.println("Masukkan jumlah kolom:");
-        // int kolom = scanner.nextInt();
-        // System.out.println("Masukkan elemen matriks:");
- /*       //file reader testing
-        //Matrix mat = new Matrix(); //tidak butuh argumen untuk konstruktor dengan file
-        mat.readMatrixFile();
-        Matrix mat = new Matrix(); //tidak butuh argumen untuk konstruktor dengan file
-        mat.tulisMatrix();
-        System.out.println(mat.getRow());
-        System.out.println(mat.getCol());
+    public static void mainMenuRoute(int c)
+    {
+        switch (c)
+        {
+            case 1 :
+            SPL();
+            break;
 
-        //Determinant tester
-        Determinant det = new Determinant();
-        det.call(1, mat);
+            case 2 :
+            determinan();
+            break;
 
-        //adjoint tester
-        Matrix mat2;
-        mat2 = mat.adj();
-        mat2.tulisMatrix();
+            case 3:
+            Inverse();
 
-        System.out.println();
+            case 6: break;
 
-        //Mat Cofactor tester
-        Matrix mat3;
-        mat3 = mat.matCofactor();
-        mat3.tulisMatrix();
+            default:
+            System.out.println("Invalid Command");
+            break;
+        }
 
-        System.out.println();
+    }
 
-        //Mat Inverse tester
-        Matrix mat4;
-        mat4 = mat.inverse();
-        mat4.tulisMatrix();
+    public static void SPL()
+    {
 
-        //Points tester user input
-        Points P = new Points(3);
-        P.readPoints();
-        P.writePoints();
+    }
 
-        System.out.println();
+    public static void Inverse()
+    {
+        int c;
+        showInputType();
+        showCommand();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1) //keyboard input - inverse
+        {
+            int row,col;
+            do{
+                System.out.print("Masukkan Jumlah Baris: ");
+                do
+                {
+                    row = sc.nextInt();
+                }
+                while(row<0);
 
-        //Points tester file input
-        Points P2 = new Points();
-        P2.writePoints();
+                System.out.print("Masukkan Jumlah Kolom: ");
+                do
+                {
+                    col = sc.nextInt();
+                }
+                while(col<0);
 
+                if (row != col){System.out.println("Matrix harus N x N !");}
+            }
+            while(row != col);
+            System.out.println("Silakan isi matrix: ");
+            Matrix mat = new Matrix(row,col);
+            mat.isiMatrix();
+            System.out.println("\nIsi Matriks:");
+            mat.tulisMatrix();
+            Determinant determinant = new Determinant();
+            double det = determinant.detReduction(mat);
+            if (closeZero(det))
+            {
+                System.out.println("Matrix tidak bunya inverse/balikan");
+            }
+            else
+            {
+                System.out.println("\nMatrix Inverse/Balikan: ");
+                mat = mat.inverse();
+                mat.tulisMatrix();
+            }
 
-        // System.out.println("Masukkan jumlah baris:");
-        // Scanner scanner = new Scanner(System.in);
-        // int baris = scanner.nextInt();
-        // System.out.println("Masukkan jumlah kolom:");
-        // int kolom = scanner.nextInt();
-        // System.out.println("Masukkan elemen matriks:");
-        System.out.println(mat.getCol());*/
-        // Matrix mat = new Matrix(baris, kolom);
-        // mat.isiOtomatis2();
-        // mat.tulisMatrix();
-        // System.out.println();
-        // Gauss.ElimMaju(mat);
+        }
 
-        // Matrix mat = new Matrix(baris, kolom);
-        // mat.isiMatrix();
-        // mat.tulisMatrix();
-        // System.out.println();
-        // Matrix newMat = new Matrix();
-        // newMat = mat.transpose();
-        // newMat.tulisMatrix();
-        // System.out.println();
-        // mat.bagiKons(2,0.10);
-        // mat.tulisMatrix();
-        // System.out.println();
-        // mat.tukarBaris(1, 2);
-        // mat.tulisMatrix();
-        // scanner.close();
+        else if (c==2) //file input - inverse
+        {
+            Matrix mat = new Matrix("txt\\matrix.txt");
+            System.out.println("\nIsi Matriks:");
+            mat.tulisMatrix();
+            Determinant determinant = new Determinant();
+            double det = determinant.detCofactor(mat);
+            if (closeZero(det))
+            {
+                System.out.println("Determinan = 0\nMatrix tidak bunya inverse/balikan");
+            }
+            else
+            {
+                System.out.println("\nMatrix Inverse/Balikan: ");
+                mat = mat.inverse();
+                mat.tulisMatrix();
+            }
+        }
+        else{System.out.println("Invalid input");}
 
+    }
 
+    public static boolean closeZero(double x)
+    {
+        return (-0.00000000000001 <= x && x <= 0.00000000000001);
+    }
 
+    public static void determinan()
+    {
+        int c;
+        detSubMenu();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1) //Metode Reduksi Baris
+        {
+            showInputType();
+            showCommand();
+            c = sc.nextInt();
+            if (c==1) //Keyboard Input - reduction
+            {
+                int row,col;
+                do{
+                    System.out.print("Masukkan Jumlah Baris: ");
+                    do
+                    {
+                        row = sc.nextInt();
+                    }
+                    while(row<0);
+
+                    System.out.print("Masukkan Jumlah Kolom: ");
+                    do
+                    {
+                        col = sc.nextInt();
+                    }
+                    while(col<0);
+
+                    if (row != col){System.out.println("Matrix harus N x N !");}
+                }
+                while(row != col);
+                System.out.println("Silakan isi matrix: ");
+                Matrix mat = new Matrix(row,col);
+                mat.isiMatrix();
+                System.out.println("\nIsi Matriks:");
+                mat.tulisMatrix();
+                Determinant determinant = new Determinant();
+                double det = determinant.detReduction(mat);
+                mat = determinant.ElimMajuDet(mat);
+                System.out.println("Matriks Segitiga Atas");
+                mat.tulisMatrix();
+                String strdet = String.format("%.3f",det);
+                System.out.println("Determinan = " + strdet +"\n");
+
+            }
+            else if (c==2) //txt file input (matrix.txt) - reduction
+            {
+                Matrix mat = new Matrix("txt\\matrix.txt");
+                System.out.println("\nIsi Matriks:");
+                mat.tulisMatrix();
+                Determinant determinant = new Determinant();
+                double det = determinant.detReduction(mat);
+                System.out.println("Matriks Segitiga Atas");
+                mat.tulisMatrix();
+                String strdet = String.format("%.3f",det);
+                System.out.println("Determinan = " + strdet+"\n");
+            }
+            else{System.out.println("Invalid input");}
+        }
+
+        else if (c==2) //Metode Kofaktor
+        {
+            showInputType();
+            showCommand();
+            c = sc.nextInt();
+            if (c==1) //keyboard input - cofactor
+            {
+                int row,col;
+                do{
+                    System.out.print("Masukkan Jumlah Baris: ");
+                    do
+                    {
+                        row = sc.nextInt();
+                    }
+                    while(row<0);
+
+                    System.out.print("Masukkan Jumlah Kolom: ");
+                    do
+                    {
+                        col = sc.nextInt();
+                    }
+                    while(col<0);
+
+                    if (row != col){System.out.println("Matrix harus N x N !");}
+                }
+                while(row != col);
+                while(col<0);
+                System.out.println("Silakan isi matrix: ");
+                Matrix mat = new Matrix(row,col);
+                mat.isiMatrix();
+                System.out.println("\nIsi Matriks:");
+                mat.tulisMatrix();
+                Determinant determinant = new Determinant();
+                double det = determinant.detReduction(mat);
+                String strdet = String.format("%.3f",det);
+                System.out.println("Determinan = " + strdet +"\n");
+            }
+
+            else if (c==2) //file input - cofactor
+            {
+                Matrix mat = new Matrix("txt\\matrix.txt");
+                System.out.println("\nIsi Matriks:");
+                mat.tulisMatrix();
+                Determinant determinant = new Determinant();
+                double det = determinant.detReduction(mat);
+                String strdet = String.format("%.3f",det);
+                System.out.println("Determinan = " + strdet+"\n");
+            }
+
+            else{System.out.println("Invalid Input");}
+        }
+        else{System.out.println("Invalid Input");}
+
+    }
+
+    public static void detSubMenu()
+    {
+        System.out.println("1. Metode Reduksi Baris");
+        System.out.println("2. Metode Ekspansi Kofaktor");
+        showCommand();
+    }
+
+    public static void showInputType()
+    {
+        System.out.println("Input Types:");
+        System.out.println("1. Keyboard Input");
+        System.out.println("2. File Input");
     }
 }
