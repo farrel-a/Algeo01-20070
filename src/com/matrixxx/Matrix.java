@@ -1,8 +1,8 @@
 package com.matrixxx;
 
 import java.util.Scanner;
-import java.io.FileNotFoundException; 
-import java.io.File;  
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Matrix {
     double[][] Mat;
@@ -47,23 +47,23 @@ public class Matrix {
         Scanner input = new Scanner(System.in);
         for (i=0; i<this.Row; i++){
             for (j=0; j<this.Col; j++){
+                System.out.print("Masukkan Baris ke-"+(i+1)+" Kolom ke-"+(j+1));
                 this.Mat[i][j] = input.nextDouble();
+                System.out.println();
             }
         }
     }
     //ABAIKAN BUAT GW DEBUG AJA INI BIAR CEPET -NANDO
     public void isiOtomatis(){
-        double tempMat [][] =  { {1,3,-2,0,2,0,0},
-                {2,6,-5,-2,4,-3,-1},
-                {0,0,5,10,0,15,5},
-                {2,6,0,8,4,18,6}};
+        double tempMat [][] =  { {0,1,0,0,1,0,3},
+                {0,0,0,1,1,0,-1},
+                {0,1,0,0,0,1,1}};
         this.Mat = tempMat;
     }
     public void isiOtomatis2(){
-        double tempMat [][] =  {{8,1,3,2,0},
-                {2,9,-1,-2,1},
-                {1,3,2,-1,2},
-                {1,0,6,4,3}};
+        double tempMat [][] =  {{1,-1,0,0,1,3},
+                {1,1,0,-3,0,6},
+                {2,-1,0,1,-1,5}, {-1,2,0,-2,-1,-1}};
         this.Mat = tempMat;
     }
     public void isiOtomatis3(){
@@ -73,6 +73,13 @@ public class Matrix {
                 {0,-2,0,3,-1},
                 {2,0,-4,0,-4},
                 {0,1,0,-2,0}};
+        this.Mat = tempMat;
+    }
+    public void isiOtomatis4(){
+        double tempMat [][] =  { {8,1,3,2,0},
+                {2,9,-1,-2,1},
+                {1,3,2,-1,2},
+                {1,0,6,4,3}};
         this.Mat = tempMat;
     }
     //Prosedur tulis isi matrix
@@ -97,7 +104,7 @@ public class Matrix {
             File file = new File("txt\\matrix.txt");
             Scanner reader = new Scanner(file);
             int i = 0;
-            while (reader.hasNextLine()) 
+            while (reader.hasNextLine())
             {
                 this.Row+=1;
                 Scanner colReader = new Scanner(reader.nextLine());
@@ -109,8 +116,8 @@ public class Matrix {
                 i += 1;
             }
             reader.close();
-            } 
-        catch (FileNotFoundException e) 
+            }
+        catch (FileNotFoundException e)
             {
                 System.out.println("File not found.");
                 e.printStackTrace();
@@ -133,7 +140,7 @@ public class Matrix {
             }
             rowReader.close();
         }
-        catch (FileNotFoundException e) 
+        catch (FileNotFoundException e)
             {
                 System.out.println("File not found.");
                 e.printStackTrace();
@@ -296,6 +303,38 @@ public class Matrix {
             return j;
         }
     }
+    public boolean isKolomAllZero (int col){
+        int i = 0;
+        while (i<this.Row){
+            if (this.Mat[i][col] != 0){
+                return false;
+            }
+            i++;
+        }
+        return true;
+
+    }
+    public boolean fRowIsKolomAllZero (int row, int col){
+        boolean flag = true;
+        int i = row;
+        while (flag && i<this.Row){
+            if (this.Mat[i][col]!=0){
+                flag = false;
+            }
+            i++;
+        }
+        return flag;
+    }
+    public int NonZeroElmt(int n, int m){
+        int count = 0;
+        for(int i=0;i<=m;i++){
+            if (this.Mat[n][i]!=0){
+                count++;
+            }
+        }
+        return count;
+    }
+
 
 
 }

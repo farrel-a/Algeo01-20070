@@ -18,8 +18,9 @@ public class Points {
 
     public void readPoints()
     {
-        Scanner sc = new Scanner(System.in);
+
         System.out.println("Masukkan titik: ");
+        Scanner sc = new Scanner(System.in);
         for(int i = 0 ; i<this.points.length ; i++)
         {
             double x = sc.nextDouble();

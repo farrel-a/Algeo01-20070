@@ -6,10 +6,22 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //tester point
+
+        System.out.println("Program interpolasi polinom");
+        System.out.println("masukkan jumlah titik yang ingin dicari (n): ");
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.close();
+
+        Points titik = new Points(n);
+        titik.readPoints();
+        titik.writePoints();
+
         //determinant reduction tester
-        Matrix mat = new Matrix();
+       /* Matrix mat = new Matrix();
         Determinant det = new Determinant();
-        det.call(2, mat);
+        det.call(2, mat);*/
 
         // System.out.println("Masukkan jumlah baris:");
         // Scanner scanner = new Scanner(System.in);

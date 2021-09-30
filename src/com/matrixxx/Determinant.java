@@ -131,8 +131,7 @@ public class Determinant {
                     row++;
                     flag++;
                 }
-                // System.out.println(row);
-                // System.out.println(flag);
+
                 if (row == matrix.getCol()-1){
                     return 1;
                 }
@@ -169,47 +168,24 @@ public class Determinant {
                 arrayZero[i] = j;
             }
             //mengurutkan matriks dari menjadi matriks eselon
-            // System.out.println(Arrays.toString(arrayZero));
-            // System.out.println();
+
             Matrix temp = matrix.copyMatrix();
-            // temp.tulisMatrix();
-            // System.out.println();
+
             int[] sortedZero = Arrays.copyOf(arrayZero, arrayZero.length);
             Arrays.sort(sortedZero);
-            // System.out.println(Arrays.toString(arrayZero));
-            // System.out.println(Arrays.toString(sortedZero));
+
             if (!Arrays.equals(arrayZero, sortedZero)){
                 for (int i = k; i< arrayZero.length; i++){
                     int x = 0;
-                    // System.out.println(arrayZero[i]);
+
                     while((arrayZero[i] != sortedZero[x])){
                         x++;
                     }
-
-                    // System.out.println(Arrays.toString(sortedZero));
-                    // System.out.println(i);
-                    // System.out.println(x);
                     sortedZero[x] = matrix.getCol();
                     matrix.Mat[x] = temp.Mat[i];
                     matrix.tukar += 1;
-                    // System.out.println(Arrays.toString(sortedZero));
                 }
             }
-
-            // matrix.tulisMatrix();
-            // System.out.println();
-
-/*            int IdxMax = k;
-            int ElMax = (int)matrix.getElmt(k, k);
-            for (int i=k+1; i< row; i++){
-                if (Math.abs(matrix.Mat[i][k] )> ElMax){
-                    ElMax = (int)matrix.Mat[i][k];
-                    IdxMax = i;
-                }
-            }
-            if (IdxMax != k){
-                matrix.tukarBaris(k, IdxMax);
-            }*/
             if (col>row){
                 for (int i = k+1; i<row; i++){
                     double divider;
@@ -226,13 +202,8 @@ public class Determinant {
                     if (matrix.Mat[k][tempRow] != 0){
                         divider = matrix.Mat[i][tempRow]/matrix.Mat[k][tempRow];
                         for (int  j = k+1; j<col; j++){
-                            // System.out.println(matrix.Mat[i][j]);
-                            // System.out.print(matrix.Mat[k][j] + " ");
-                            // System.out.println(divider);
                             matrix.Mat[i][j] -= matrix.Mat[k][j] * divider;
                             Rounder(matrix, 1e-9);
-                            // System.out.println(matrix.Mat[i][j]);
-                            // System.out.println();
                         }
                     }
                     matrix.Mat[i][k] = 0;
@@ -254,13 +225,8 @@ public class Determinant {
                     if (matrix.Mat[k][tempRow] != 0){
                         divider = matrix.Mat[i][tempRow]/matrix.Mat[k][tempRow];
                         for (int  j = 0; j<col; j++){
-                            // System.out.println(matrix.Mat[i][j]);
-                            // System.out.print(matrix.Mat[k][j] + " ");
-                            // System.out.println(divider);
                             matrix.Mat[i][j] -= matrix.Mat[k][j] * divider;
                             Rounder(matrix, 1e-9);
-                            // System.out.println(matrix.Mat[i][j]);
-                            // System.out.println();
                         }
                     }
                     matrix.Mat[i][k] = 0;
@@ -268,12 +234,8 @@ public class Determinant {
 
             }
 
-            // matrix.tulisMatrix();
-            // System.out.println();
-
         }
-        // matrix.tulisMatrix();
-        // System.out.println();
+
         for (int r = 0; r< matrix.getRow(); r++){
             int c = 0;
             if (matrix.Mat[r][c] == 0){
@@ -284,7 +246,6 @@ public class Determinant {
                     }
                 }
             }
-
             if (c< matrix.getCol()){
                 // double divider = matrix.Mat[r][c];
                 for (int tcol = 0; tcol< matrix.getCol(); tcol++){
@@ -293,26 +254,9 @@ public class Determinant {
             }
             //else berarti barisnya isinya 0 semua
         }
-       /* for (int r = 0; r< matrix.getRow(); r++){
-            double divider = matrix.Mat[r][r];
-            for (int c = 0; c< matrix.getCol(); c++){
-                matrix.Mat[r][c] = matrix.Mat[r][c]/divider;
-            }
-        }*/
         Rounder(matrix, 1e-9);
-        // System.out.println("Matriks Eselon adalah:");
-        // System.out.println();
         return matrix;
     }
-
-
-
-
-   /* public static  double[] BackSub (Matrix matrix){
-        int unknown = matrix.getCol();
-        double [] result = new double[unknown];
-
-    }*/
     public void Rounder ( Matrix matrix, double constraint){
         for (int i=0; i<matrix.getRow(); i++){
             for (int j=0; j<matrix.getCol(); j++){
