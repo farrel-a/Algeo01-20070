@@ -75,6 +75,75 @@ public class Main {
         c = sc.nextInt();
         if (c==1) //keyboard input - mlr
         {
+            Save file = new Save("regresi.txt");
+            String content = "";
+            MLR mlr = new MLR();
+            Matrix mat = mlr.callInputMatrix();
+            System.out.println("Matriks Regresi Linear Berganda: ");
+            content+="Matriks Regresi Linear Berganda: \n";
+            mat.tulisMatrix();
+            content+=mat.tulisMatrixString();content+="\n";
+            mat = mat.ElimMaju(mat);
+            System.out.println("Matriks Eselon: ");
+            content+="\nMatriks Eselon: \n";
+            mat.tulisMatrix();
+            System.out.println();
+            content+=mat.tulisMatrixString(); content+="\n";
+
+            double[] solusi = {};
+            Gauss gauss = new Gauss();
+            solusi = gauss.GaussSolverFunction(mat);
+
+            int i;
+            double[] x = new double[solusi.length];
+            x[0] = 1;
+            for(i = 1 ; i<x.length ; i++)
+            {
+                System.out.print("Masukkan X"+i+": ");
+                x[i] = sc.nextDouble();
+            }
+            System.out.print("\ny = ");
+            content += "\ny = ";
+            for (i=0 ; i<solusi.length;i++)
+            {
+                if (i==0)
+                {
+                    String strsol = String.format("%.3f", solusi[i]);
+                    System.out.print(strsol + " + ");
+                    content += (strsol + " + ");
+                }
+                else
+                {
+                    String strsol = String.format("%.3f", solusi[i]);
+                    System.out.print(strsol+" x"+(i));
+                    content += strsol+" x"+(i);
+                    if (i != solusi.length-1){System.out.print(" + ");
+                       content+=" + "; }
+                }
+                
+            }
+            System.out.println("\n");
+            content += "\n";
+
+            double y = 0;
+            for (i = 0; i<solusi.length;i++)
+            {
+                if (i==0) {y+=solusi[i];}
+                else{
+                    y = y + x[i]*solusi[i];
+                }
+            }
+            for(i = 1 ; i<x.length ; i++)
+            {
+                System.out.println("X"+i +" = " + x[i]);
+                content += ("X"+i +" = " + x[i]);
+                content += "\n";
+            }
+            System.out.println("Y = " + y);
+            content += ("Y = " + y);
+            System.out.println();
+            content += "\n";
+            file.write(content);
 
         }
         else if (c==2) //file input - mlr
@@ -85,10 +154,10 @@ public class Main {
             Matrix mat = mlr.callFileMatrix("..\\test\\mlrpoints.txt");
             double[] solusi;
             solusi = mlr.callFile("..\\test\\mlrpoints.txt");
-            content+="Matriks Regeresi Linear Berganda: \n\n";
+            content+="Matriks Regeresi Linear Berganda: \n";
             content += mat.tulisMatrixString();
             mat = mat.ElimMaju(mat);
-            content+="\nMatriks Eselon:\n\n";
+            content+="\nMatriks Eselon:\n";
             content+=mat.tulisMatrixString();
             int i;
             double[] x = new double[solusi.length];
