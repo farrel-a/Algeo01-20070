@@ -67,7 +67,8 @@ public class Gauss {
         }
     }
 
-    public static void GaussSolver(Matrix matrix, String write, String toFile, Save file){
+    public static void GaussSolver(Matrix matrix, String write, String toFile, Save file)
+    {
         int x = Kemungkinan(matrix);
         if (x==3){
             if (write == "SPL"){
@@ -313,9 +314,9 @@ public class Gauss {
 
 
         }
-     }
+    }
 
-     public static double[] GaussSolverFunction(Matrix matrix){
+    public static double[] GaussSolverFunction(Matrix matrix){
         int x = Kemungkinan(matrix);
         double[] solusi = {};
         if (x==3){
@@ -464,9 +465,9 @@ public class Gauss {
         }
 
         Rounder(matrix, 1e-9);
-        System.out.println("Matriks Eselon adalah:");
-        System.out.println();
-        matrix.tulisMatrix();
+        // System.out.println("Matriks Eselon adalah:");
+        // System.out.println();
+        // matrix.tulisMatrix();
     }
 
     public static void Rounder ( Matrix matrix, double constraint){

@@ -50,9 +50,9 @@ public class Matrix {
         Scanner input = new Scanner(System.in);
         for (i=0; i<this.Row; i++){
             for (j=0; j<this.Col; j++){
-                System.out.print("Masukkan Baris ke-"+(i+1)+" Kolom ke-"+(j+1));
+                // System.out.print("Masukkan Baris ke-"+(i+1)+" Kolom ke-"+(j+1));
                 this.Mat[i][j] = input.nextDouble();
-                System.out.println();
+                // System.out.println();
             }
         }
     }

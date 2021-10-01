@@ -310,18 +310,21 @@ public class Main {
             Save file = new Save("ElimGauss.txt");
             String content = "";
 
-            System.out.println("Masukkan jumlah baris:");
+            System.out.print("Masukkan jumlah baris: ");
             Scanner scanner = new Scanner(System.in);
             int baris = scanner.nextInt();
-            System.out.println("Masukkan jumlah kolom:");
+            System.out.print("Masukkan jumlah kolom: ");
             int kolom = scanner.nextInt();
-            System.out.println("Masukkan elemen matriks:");
+            System.out.println("Masukkan elemen matriks: ");
 
             Matrix mat = new Matrix(baris, kolom);
             mat.isiMatrix();
-            content += "Akan dicari penyelesaian SPL (Gauss) untuk matriks berikut ini \n";
+            content += "Matriks: \n";
+            content += mat.tulisMatrixString(); content+="\n\n";
+            System.out.println("Matriks:");
             mat.tulisMatrix();
             System.out.println();
+            content += "Akan dicari penyelesaian SPL (Gauss) untuk matriks berikut ini \n";
             Gauss.ElimMaju(mat);
             System.out.println("Matriks Eselon: ");
             content+="\nMatriks Eselon: \n";
@@ -330,6 +333,32 @@ public class Main {
             content+=mat.tulisMatrixString(); content+="\n";
             Gauss.GaussSolver(mat, "SPL", content, file);
 
+        }
+
+        else if (c==2) //file input gauss
+        {
+            Save file = new Save("ElimGauss.txt");
+            String content = "";
+            Matrix mat = new Matrix("..\\test\\matrix.txt");
+            content += "Matriks: \n";
+            content += mat.tulisMatrixString(); content+="\n\n";
+            System.out.println("Matriks:");
+            mat.tulisMatrix();
+            System.out.println();
+            content += "Akan dicari penyelesaian SPL (Gauss) untuk matriks berikut ini \n";
+            Gauss.ElimMaju(mat);
+            System.out.println("Matriks Eselon: ");
+            content+="\nMatriks Eselon: \n";
+            mat.tulisMatrix();
+            System.out.println();
+            content+=mat.tulisMatrixString(); content+="\n";
+            Gauss.GaussSolver(mat, "SPL", content, file);
+
+        }
+
+        else
+        {
+            System.out.println("Invalid input");
         }
     }
 
@@ -344,22 +373,57 @@ public class Main {
             String content = "";
             Gauss gauss = new Gauss();
 
-            System.out.println("Masukkan jumlah baris:");
+            System.out.print("Masukkan jumlah baris: ");
             Scanner scanner = new Scanner(System.in);
             int baris = scanner.nextInt();
-            System.out.println("Masukkan jumlah kolom:");
+            System.out.print("Masukkan jumlah kolom: ");
             int kolom = scanner.nextInt();
             System.out.println("Masukkan elemen matriks:");
 
             Matrix mat = new Matrix(baris, kolom);
             mat.isiMatrix();
+            content += "Matriks: \n";
+            content += mat.tulisMatrixString(); content += "\n";
+            System.out.println("Matriks:");
             mat.tulisMatrix();
             System.out.println();
 
             Gauss.ElimMaju(mat);
             Gauss.reducedEF(mat);
+            System.out.println("Matriks Eselon Tereduksi: ");
+            mat.tulisMatrix();
+            content += "Matriks Eselon Tereduksi:\n";
+            content += mat.tulisMatrixString(); content += "\n";
             Gauss.GaussSolver(mat, "SPL", content, file);
 
+        }
+
+        else if (c==2) //file input gaussjordan
+        {
+            Save file = new Save("ElimGaussJordan.txt");
+            String content = "";
+            Gauss gauss = new Gauss();
+
+            Matrix mat = new Matrix("..\\test\\matrix.txt");
+
+            content += "Matriks: \n";
+            content += mat.tulisMatrixString(); content += "\n";
+            System.out.println("Matriks:");
+            mat.tulisMatrix();
+            System.out.println();
+
+            Gauss.ElimMaju(mat);
+            Gauss.reducedEF(mat);
+            System.out.println("Matriks Eselon Tereduksi: ");
+            mat.tulisMatrix();
+            content += "Matriks Eselon Tereduksi:\n";
+            content += mat.tulisMatrixString(); content += "\n";
+            Gauss.GaussSolver(mat, "SPL", content, file);
+        }
+
+        else
+        {
+            System.out.println("Invalid input");
         }
     }
 
