@@ -856,8 +856,9 @@ public class Main {
                 mat.tulisMatrix();
                 content += mat.tulisMatrixString();
                 Determinant determinant = new Determinant();
-                double det = determinant.detReduction(mat);
+                
                 mat = determinant.ElimMajuDet(mat);
+                double det = determinant.detReduction(mat);
                 System.out.println("Matriks Segitiga Atas:");
                 content += "Matriks Segitiga Atas:\n";
                 mat.tulisMatrix();
@@ -879,9 +880,10 @@ public class Main {
                 content += "\n";
                 mat.tulisMatrix();
                 Determinant determinant = new Determinant();
-                double det = determinant.detReduction(mat);
+                
                 content += "Matriks Segitiga Atas:\n";
                 mat = determinant.ElimMajuDet(mat);
+                double det = determinant.detReduction(mat);
                 System.out.println("Matriks Segitiga Atas:");
                 mat.tulisMatrix();
                 content+=mat.tulisMatrixString();
@@ -930,7 +932,7 @@ public class Main {
                 content += mat.tulisMatrixString();
                 content += "\n";
                 Determinant determinant = new Determinant();
-                double det = determinant.detReduction(mat);
+                double det = determinant.detCofactor(mat);
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet +"\n");
                 content += "Determinan = " + strdet +"\n";
@@ -945,7 +947,7 @@ public class Main {
                 mat.tulisMatrix();
                 content += mat.tulisMatrixString();
                 Determinant determinant = new Determinant();
-                double det = determinant.detReduction(mat);
+                double det = determinant.detCofactor(mat);
                 String strdet = String.format("%.3f",det);
                 System.out.println("Determinan = " + strdet+"\n");
                 content +="Determinan = " + strdet+"\n";
