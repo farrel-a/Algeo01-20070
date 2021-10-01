@@ -104,7 +104,6 @@ public class Determinant {
         {
             deter *= temp.getElmt(i, i);
         }
-        deter *= Math.pow(-1,temp.getTukar());
         return deter;
     }
 
@@ -184,7 +183,7 @@ public class Determinant {
                     }
                     sortedZero[x] = matrix.getCol();
                     matrix.Mat[x] = temp.Mat[i];
-                    matrix.tukar += 1;
+                    // matrix.tukar += 1;
                 }
             }
             if (col>row){

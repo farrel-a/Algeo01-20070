@@ -857,8 +857,9 @@ public class Main {
                 content += mat.tulisMatrixString();
                 Determinant determinant = new Determinant();
                 
-                mat = determinant.ElimMajuDet(mat);
                 double det = determinant.detReduction(mat);
+                mat = determinant.ElimMajuDet(mat);
+                
                 System.out.println("Matriks Segitiga Atas:");
                 content += "Matriks Segitiga Atas:\n";
                 mat.tulisMatrix();
@@ -882,8 +883,9 @@ public class Main {
                 Determinant determinant = new Determinant();
                 
                 content += "Matriks Segitiga Atas:\n";
-                mat = determinant.ElimMajuDet(mat);
                 double det = determinant.detReduction(mat);
+                mat = determinant.ElimMajuDet(mat);
+
                 System.out.println("Matriks Segitiga Atas:");
                 mat.tulisMatrix();
                 content+=mat.tulisMatrixString();
