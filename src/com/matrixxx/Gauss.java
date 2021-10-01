@@ -6,28 +6,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Gauss {
-    public static void main(String[] args) {
-        System.out.println("Masukkan jumlah baris:");
-        Scanner scanner = new Scanner(System.in);
-        int baris = scanner.nextInt();
-        System.out.println("Masukkan jumlah kolom:");
-        int kolom = scanner.nextInt();
-        System.out.println("Masukkan elemen matriks:");
 
-        Matrix mat = new Matrix(baris, kolom);
-        mat.isiOtomatis3();
-        mat.tulisMatrix();
-        System.out.println();
-
-        ElimMaju(mat);
-        reducedEF(mat);
-        mat.tulisMatrix();
-        //GaussSolver(mat, "SPL");
-
-
-
-
-    }
      public static int Kemungkinan (Matrix matrix){
         int i = matrix.getRow()-1;
         if (matrix.isRowAllZero(i)){
@@ -43,7 +22,7 @@ public class Gauss {
         else {
             int row = 0;
             int flag = matrix.FirstNonZero(row);
-            // System.out.println(flag);
+
             if (flag == -1){
                 return 2;
             }
@@ -52,8 +31,6 @@ public class Gauss {
                     row++;
                     flag++;
                 }
-                // System.out.println(row);
-                // System.out.println(flag);
                 if (row == matrix.getCol()-1){
                     return 1;
                 }
@@ -135,7 +112,7 @@ public class Gauss {
                             toFile += tanda + Math.abs(solusi[i]);
                         }
                     }
-                    //System.out.print(solusi[i]);
+
                 }
                 toFile += "\n";
                 System.out.println();
@@ -185,8 +162,6 @@ public class Gauss {
 
             double[][] solusi = new double[matrix.getCol()-1][matrix.getCol()-countNonZero+3];
             boolean[] declared = new boolean[matrix.getCol()-1];
-            System.out.println(Arrays.toString(declared));
-            System.out.println(Arrays.deepToString(solusi));
 
             int xParam = 0;
             int cr2 = countNonZero-1;
@@ -226,10 +201,6 @@ public class Gauss {
             }
 
 
-
-            System.out.println(Arrays.toString(declared));
-            System.out.println(Arrays.deepToString(solusi));
-
             cr2 = countNonZero-1;
             cc2 = 0;
             for (int i=cr2;i>=0;i--) {
@@ -260,8 +231,7 @@ public class Gauss {
 
                 }
             }
-            System.out.println(Arrays.toString(declared));
-            System.out.println(Arrays.deepToString(solusi));
+
             //tulis hasil solusi
             DecimalFormat df = new DecimalFormat("#.##");
             String[] kons =  {"r","s","t","u","v","w","x","y","z"};
@@ -336,7 +306,6 @@ public class Gauss {
             return solusi;
         }
         else {
-            char[] kons = "rstuvwxyz".toCharArray();
             return solusi;
 
         }
@@ -401,13 +370,10 @@ public class Gauss {
                     if (matrix.Mat[k][tempRow] != 0){
                         divider = matrix.Mat[i][tempRow]/matrix.Mat[k][tempRow];
                         for (int  j = k+1; j<col; j++){
-                            System.out.println(matrix.Mat[i][j]);
-                            System.out.print(matrix.Mat[k][j] + " ");
-                            System.out.println(divider);
+
                             matrix.Mat[i][j] -= matrix.Mat[k][j] * divider;
                             Rounder(matrix, 1e-9);
-                            System.out.println(matrix.Mat[i][j]);
-                            System.out.println();
+
                         }
                     }
                     matrix.Mat[i][k] = 0;
@@ -429,13 +395,8 @@ public class Gauss {
                     if (matrix.Mat[k][tempRow] != 0){
                         divider = matrix.Mat[i][tempRow]/matrix.Mat[k][tempRow];
                         for (int  j = 0; j<col; j++){
-                            System.out.println(matrix.Mat[i][j]);
-                            System.out.print(matrix.Mat[k][j] + " ");
-                            System.out.println(divider);
                             matrix.Mat[i][j] -= matrix.Mat[k][j] * divider;
                             Rounder(matrix, 1e-9);
-                            System.out.println(matrix.Mat[i][j]);
-                            System.out.println();
                         }
                     }
                     matrix.Mat[i][k] = 0;
@@ -465,9 +426,7 @@ public class Gauss {
         }
 
         Rounder(matrix, 1e-9);
-        // System.out.println("Matriks Eselon adalah:");
-        // System.out.println();
-        // matrix.tulisMatrix();
+
     }
 
     public static void Rounder ( Matrix matrix, double constraint){

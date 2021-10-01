@@ -517,12 +517,8 @@ public class Matrix {
 
             }
 
-            // matrix.tulisMatrix();
-            // System.out.println();
-
         }
-        // matrix.tulisMatrix();
-        // System.out.println();
+
         for (int r = 0; r< matrix.getRow(); r++){
             int c = 0;
             if (matrix.Mat[r][c] == 0){
@@ -542,26 +538,10 @@ public class Matrix {
             }
             //else berarti barisnya isinya 0 semua
         }
-       /* for (int r = 0; r< matrix.getRow(); r++){
-            double divider = matrix.Mat[r][r];
-            for (int c = 0; c< matrix.getCol(); c++){
-                matrix.Mat[r][c] = matrix.Mat[r][c]/divider;
-            }
-        }*/
         Rounder(matrix, 1e-9);
-        // System.out.println("Matriks Eselon adalah:");
-        // System.out.println();
         return matrix;
     }
 
-
-
-
-    /* public static  double[] BackSub (Matrix matrix){
-         int unknown = matrix.getCol();
-         double [] result = new double[unknown];
-
-     }*/
     public void Rounder ( Matrix matrix, double constraint){
         for (int i=0; i<matrix.getRow(); i++){
             for (int j=0; j<matrix.getCol(); j++){
