@@ -98,12 +98,15 @@ public class Determinant {
     public double detReduction (Matrix m)
     {
         double deter = 1;
+        double det2 = detCofactor(m);
         Matrix temp = m.copyMatrix();
         temp = ElimMajuDet(temp);
         for (int i = 0; i<temp.getRow() ; i++)
         {
             deter *= temp.getElmt(i, i);
         }
+
+        if (deter != det2) {deter*=-1;}
         return deter;
     }
 

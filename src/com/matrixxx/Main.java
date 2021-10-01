@@ -875,25 +875,31 @@ public class Main {
             else if (c==2) //txt file input (matrix.txt) - reduction
             {
                 Matrix mat = new Matrix("..\\test\\matrix.txt");
-                content +="Isi Matriks:\n";
-                System.out.println("\nIsi Matriks:");
-                content += mat.tulisMatrixString();
-                content += "\n";
-                mat.tulisMatrix();
-                Determinant determinant = new Determinant();
-                
-                content += "Matriks Segitiga Atas:\n";
-                double det = determinant.detReduction(mat);
-                mat = determinant.ElimMajuDet(mat);
+                if (mat.getCol() != mat.getRow())
+                {
+                    System.out.println("Matriks harus N x N !");
+                }
+                else{
+                    content +="Isi Matriks:\n";
+                    System.out.println("\nIsi Matriks:");
+                    content += mat.tulisMatrixString();
+                    content += "\n";
+                    mat.tulisMatrix();
+                    Determinant determinant = new Determinant();
+                    
+                    content += "Matriks Segitiga Atas:\n";
+                    double det = determinant.detReduction(mat);
+                    mat = determinant.ElimMajuDet(mat);
 
-                System.out.println("Matriks Segitiga Atas:");
-                mat.tulisMatrix();
-                content+=mat.tulisMatrixString();
-                content+="\n";
-                String strdet = String.format("%.3f",det);
-                System.out.println("Determinan = " + strdet+"\n");
-                content+="Determinan = " + strdet+"\n";
-                file.write(content);
+                    System.out.println("Matriks Segitiga Atas:");
+                    mat.tulisMatrix();
+                    content+=mat.tulisMatrixString();
+                    content+="\n";
+                    String strdet = String.format("%.3f",det);
+                    System.out.println("Determinan = " + strdet+"\n");
+                    content+="Determinan = " + strdet+"\n";
+                    file.write(content);
+                }
             }
             else{System.out.println("Invalid input");}
         }
@@ -944,16 +950,22 @@ public class Main {
             else if (c==2) //file input - cofactor
             {
                 Matrix mat = new Matrix("..\\test\\matrix.txt");
-                content += "Isi Matriks:\n";
-                System.out.println("\nIsi Matriks:");
-                mat.tulisMatrix();
-                content += mat.tulisMatrixString();
-                Determinant determinant = new Determinant();
-                double det = determinant.detCofactor(mat);
-                String strdet = String.format("%.3f",det);
-                System.out.println("Determinan = " + strdet+"\n");
-                content +="Determinan = " + strdet+"\n";
-                file.write(content);
+                if (mat.getRow() != mat.getCol())
+                {
+                    System.out.println("Matriks harus N x N !");
+                }
+                else{
+                    content += "Isi Matriks:\n";
+                    System.out.println("\nIsi Matriks:");
+                    mat.tulisMatrix();
+                    content += mat.tulisMatrixString();
+                    Determinant determinant = new Determinant();
+                    double det = determinant.detCofactor(mat);
+                    String strdet = String.format("%.3f",det);
+                    System.out.println("Determinan = " + strdet+"\n");
+                    content +="Determinan = " + strdet+"\n";
+                    file.write(content);
+                }
             }
 
             else{System.out.println("Invalid Input");}
