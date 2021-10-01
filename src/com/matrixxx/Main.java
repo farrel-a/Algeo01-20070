@@ -103,56 +103,66 @@ public class Main {
             Gauss gauss = new Gauss();
             solusi = gauss.GaussSolverFunction(mat);
 
-            int i;
-            double[] x = new double[solusi.length];
-            x[0] = 1;
-            for(i = 1 ; i<x.length ; i++)
+            if (solusi.length==0)
             {
-                System.out.print("Masukkan X"+i+": ");
-                x[i] = sc.nextDouble();
+                System.out.println("Tidak memiliki solusi/Solusi Banyak, Y tidak bisa ditaksir");
+                content += "\nTidak memiliki solusi/Solusi Banyak, Y tidak bisa ditaksir";
+                file.write(content);
             }
-            System.out.print("\ny = ");
-            content += "\ny = ";
-            for (i=0 ; i<solusi.length;i++)
-            {
-                if (i==0)
-                {
-                    String strsol = String.format("%.3f", solusi[i]);
-                    System.out.print(strsol + " + ");
-                    content += (strsol + " + ");
-                }
-                else
-                {
-                    String strsol = String.format("%.3f", solusi[i]);
-                    System.out.print(strsol+" x"+(i));
-                    content += strsol+" x"+(i);
-                    if (i != solusi.length-1){System.out.print(" + ");
-                       content+=" + "; }
-                }
 
-            }
-            System.out.println("\n");
-            content += "\n";
-
-            double y = 0;
-            for (i = 0; i<solusi.length;i++)
+            else
             {
-                if (i==0) {y+=solusi[i];}
-                else{
-                    y = y + x[i]*solusi[i];
+                int i;
+                double[] x = new double[solusi.length];
+                x[0] = 1;
+                for(i = 1 ; i<x.length ; i++)
+                {
+                    System.out.print("Masukkan X"+i+": ");
+                    x[i] = sc.nextDouble();
                 }
-            }
-            for(i = 1 ; i<x.length ; i++)
-            {
-                System.out.println("X"+i +" = " + x[i]);
-                content += ("X"+i +" = " + x[i]);
+                System.out.print("\ny = ");
+                content += "\ny = ";
+                for (i=0 ; i<solusi.length;i++)
+                {
+                    if (i==0)
+                    {
+                        String strsol = String.format("%.3f", solusi[i]);
+                        System.out.print(strsol + " + ");
+                        content += (strsol + " + ");
+                    }
+                    else
+                    {
+                        String strsol = String.format("%.3f", solusi[i]);
+                        System.out.print(strsol+" x"+(i));
+                        content += strsol+" x"+(i);
+                        if (i != solusi.length-1){System.out.print(" + ");
+                            content+=" + "; }
+                    }
+
+                }
+                System.out.println("\n");
                 content += "\n";
+
+                double y = 0;
+                for (i = 0; i<solusi.length;i++)
+                {
+                    if (i==0) {y+=solusi[i];}
+                    else{
+                        y = y + x[i]*solusi[i];
+                    }
+                }
+                for(i = 1 ; i<x.length ; i++)
+                {
+                    System.out.println("X"+i +" = " + x[i]);
+                    content += ("X"+i +" = " + x[i]);
+                    content += "\n";
+                }
+                System.out.println("Y = " + y);
+                content += ("Y = " + y);
+                System.out.println();
+                content += "\n";
+                file.write(content);
             }
-            System.out.println("Y = " + y);
-            content += ("Y = " + y);
-            System.out.println();
-            content += "\n";
-            file.write(content);
 
         }
         else if (c==2) //file input - mlr
@@ -168,56 +178,65 @@ public class Main {
             mat = mat.ElimMaju(mat);
             content+="\nMatriks Eselon:\n";
             content+=mat.tulisMatrixString();
-            int i;
-            double[] x = new double[solusi.length];
-            x[0] = 1;
-            for(i = 1 ; i<x.length ; i++)
+            if (solusi.length==0)
             {
-                System.out.print("Masukkan X"+i+": ");
-                x[i] = sc.nextDouble();
+                System.out.println("Tidak memiliki solusi/Solusi Banyak, Y tidak bisa ditaksir");
+                content += "\nTidak memiliki solusi/Solusi Banyak, Y tidak bisa ditaksir";
+                file.write(content);
             }
-            System.out.print("\ny = ");
-            content += "\ny = ";
-            for (i=0 ; i<solusi.length;i++)
+            else
             {
-                if (i==0)
+                int i;
+                double[] x = new double[solusi.length];
+                x[0] = 1;
+                for(i = 1 ; i<x.length ; i++)
                 {
-                    String strsol = String.format("%.3f", solusi[i]);
-                    System.out.print(strsol + " + ");
-                    content += (strsol + " + ");
+                    System.out.print("Masukkan X"+i+": ");
+                    x[i] = sc.nextDouble();
                 }
-                else
+                System.out.print("\ny = ");
+                content += "\ny = ";
+                for (i=0 ; i<solusi.length;i++)
                 {
-                    String strsol = String.format("%.3f", solusi[i]);
-                    System.out.print(strsol+" x"+(i));
-                    content += strsol+" x"+(i);
-                    if (i != solusi.length-1){System.out.print(" + ");
-                       content+=" + "; }
-                }
+                    if (i==0)
+                    {
+                        String strsol = String.format("%.3f", solusi[i]);
+                        System.out.print(strsol + " + ");
+                        content += (strsol + " + ");
+                    }
+                    else
+                    {
+                        String strsol = String.format("%.3f", solusi[i]);
+                        System.out.print(strsol+" x"+(i));
+                        content += strsol+" x"+(i);
+                        if (i != solusi.length-1){System.out.print(" + ");
+                        content+=" + "; }
+                    }
 
-            }
-            System.out.println("\n");
-            content += "\n";
-
-            double y = 0;
-            for (i = 0; i<solusi.length;i++)
-            {
-                if (i==0) {y+=solusi[i];}
-                else{
-                    y = y + x[i]*solusi[i];
                 }
-            }
-            for(i = 1 ; i<x.length ; i++)
-            {
-                System.out.println("X"+i +" = " + x[i]);
-                content += ("X"+i +" = " + x[i]);
+                System.out.println("\n");
                 content += "\n";
+
+                double y = 0;
+                for (i = 0; i<solusi.length;i++)
+                {
+                    if (i==0) {y+=solusi[i];}
+                    else{
+                        y = y + x[i]*solusi[i];
+                    }
+                }
+                for(i = 1 ; i<x.length ; i++)
+                {
+                    System.out.println("X"+i +" = " + x[i]);
+                    content += ("X"+i +" = " + x[i]);
+                    content += "\n";
+                }
+                System.out.println("Y = " + y);
+                content += ("Y = " + y);
+                System.out.println();
+                content += "\n";
+                file.write(content);
             }
-            System.out.println("Y = " + y);
-            content += ("Y = " + y);
-            System.out.println();
-            content += "\n";
-            file.write(content);
         }
         else{System.out.println("Invalid Input");}
     }

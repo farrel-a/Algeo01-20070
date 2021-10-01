@@ -320,7 +320,7 @@ public class Gauss {
         int x = Kemungkinan(matrix);
         double[] solusi = {};
         if (x==3){
-            System.out.println("Memiliki banyak solusi");
+            System.out.println("SPLTidak Memiliki Solusi!");
             return solusi;
         }
         else if (x==1){
