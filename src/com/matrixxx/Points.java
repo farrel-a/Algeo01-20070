@@ -29,7 +29,7 @@ public class Points {
             this.points[i] = P;
 
         }
-        sc.close();
+        
     }
 
     public Point getElmt(int i)

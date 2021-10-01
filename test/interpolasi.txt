@@ -1,12 +1,24 @@
-1.230 -12.300
--1.000 2.000
-3.000 2.000
-4.000 0.500
+0.100 0.003
+0.300 0.067
+0.500 0.148
+0.700 0.248
+0.900 0.370
+1.100 0.518
+1.300 0.697
 Polinom interpolasi yang melewati titik-titik tersebut adalah:
-P(x) =  - 14.094569060298985 - 6.481070441791245x^1 + 8.19728453014949x^2 - 1.416214088358248x^3
+P(x) =  - 0.022976562500000138 + 0.24000000000000216x^1 + 0.19739583333332392x^2 + 1.5064338665382593E-14x^3 + 0.02604166666665873x^4
 
-Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 2.1
-P(2.1) = -4.670350882387082
+Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 0.2
+P(0.2) = 0.03296093750000002
+
+Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 0.55
+P(0.55) = 0.17111865234375
+
+Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 0.85
+P(0.85) = 0.33723583984374994
+
+Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 1.28
+P(1.28) = 0.6775418374999975
 
 Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): 999.999
 --------------------KEMBALI KE MENU UTAMA-------------------------
