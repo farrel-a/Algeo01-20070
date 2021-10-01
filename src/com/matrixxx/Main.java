@@ -762,7 +762,7 @@ public class Main {
             content += mat.tulisMatrixString();
             content+="\n";
             Determinant determinant = new Determinant();
-            double det = determinant.detReduction(mat);
+            double det = determinant.detCofactor(mat);
             if (closeZero(det))
             {
                 System.out.println("Matrix tidak bunya inverse/balikan");
