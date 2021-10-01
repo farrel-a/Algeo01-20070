@@ -467,6 +467,7 @@ public class Main {
 
             case 3:
             //SPL MATRIKS BALIKAN DI SINI
+            invspl();
             break;
 
             case 4:
@@ -481,23 +482,219 @@ public class Main {
         }
 
     }
+
+    public static void invspl()
+    {
+        int c = 0;
+        showInputType();
+        showCommand();
+        Scanner sc = new Scanner(System.in);
+        c = sc.nextInt();
+        if (c==1)       //keyboard input - inverse spl
+        {
+            System.out.print("Masukkan jumlah baris: ");
+            int row = sc.nextInt();
+            System.out.print("Masukkan jumlah kolom: ");
+            int col = sc.nextInt();
+
+            if (row == (col-1))
+            {
+                Matrix mat = new Matrix(row,col);
+                System.out.println("Masukkan elemen matriks: ");
+                mat.isiMatrix();
+                int i,j;
+                Matrix mat2 = new Matrix(mat.getCol()-1,mat.getCol()-1); //Matriks A
+                for (i=0 ; i<mat2.getRow();i++) //Pengisian Matriks A dari mat
+                {
+                    for (j=0 ; j<mat2.getCol();j++)
+                    {
+                        mat2.Mat[i][j] = mat.getElmt(i, j);
+                    }
+                }
+                Determinant determinant = new Determinant();
+                double det = determinant.detCofactor(mat2);
+                if (det!=0)
+                {
+                    
+                    Save file = new Save("InverseSPL.txt");
+                    String content = "";
+
+                    InverseSPL splinv = new InverseSPL();
+                    double[] solusi = splinv.inverseSPL(mat);
+
+                    System.out.println("Matriks: ");
+                    mat.tulisMatrix();
+                    content+="Matriks:\n";
+                    content+=mat.tulisMatrixString();content+="\n\n";
+
+                    System.out.println("Matriks A: ");
+                    mat2.tulisMatrix();
+                    content+="Matriks A:\n";
+                    content+=mat2.tulisMatrixString();content+="\n\n";
+
+                    double[] B = new double[mat.getRow()];
+                    for (i=0 ; i<mat.getRow() ; i++)  //matriks B
+                    {
+                        B[i] = mat.getElmt(i, mat.getCol()-1);
+                    }
+
+
+                    System.out.println("Matriks A^-I: ");
+                    mat2 = mat2.inverse();
+                    mat2.tulisMatrix();
+                    content+="Matriks A-I:\n";
+                    content+=mat2.tulisMatrixString();content+="\n\n";
+
+                    System.out.println("Matriks B: ");
+                    content+="Matriks B: \n";
+                    for (i = 0;i<B.length;i++)
+                    {
+                        System.out.print(B[i]);
+                        content+=B[i];
+                        if (i!=B.length-1)
+                        {
+                            System.out.print(" ");
+                            content+=" ";
+                        }
+                    }
+                    System.out.println("\n");
+                    content+="\n\n";
+                    
+                    System.out.println("Solusi: ");
+                    content += "Solusi: \n";
+                    for (i=0 ; i<solusi.length ; i++)
+                    {
+                        content += ("X"+(i+1)+" = " + solusi[i]+"\n");
+                        System.out.println("X"+(i+1)+" = " + solusi[i]);
+                    }
+                    file.write(content);
+                }
+
+                else
+                {
+                    System.out.println("Tidak bisa menggunakan metode matriks balikan");
+                    System.out.println("Determinan = 0");
+                }
+
+            }
+            else
+            {
+                System.out.println("Tidak bisa menggunakan metode matriks balikan");
+                System.out.println("Matriks haruslah N x M dengan N = M-1");
+            }
+        }
+
+        else if (c==2)      //file input - inverse spl
+        {            
+            Matrix mat = new Matrix("..\\test\\matrix.txt");
+            if (mat.getRow() == mat.getCol()-1)
+            {
+                int i,j;
+                Matrix mat2 = new Matrix(mat.getCol()-1,mat.getCol()-1); //Matriks A
+                for (i=0 ; i<mat2.getRow();i++) //Pengisian Matriks A dari mat
+                {
+                    for (j=0 ; j<mat2.getCol();j++)
+                    {
+                        mat2.Mat[i][j] = mat.getElmt(i, j);
+                    }
+                }
+                Determinant determinant = new Determinant();
+                double det = determinant.detCofactor(mat2);
+                if (det!=0)
+                {
+                    
+                    Save file = new Save("InverseSPL.txt");
+                    String content = "";
+
+                    InverseSPL splinv = new InverseSPL();
+                    double[] solusi = splinv.inverseSPL(mat);
+
+                    System.out.println("Matriks: ");
+                    mat.tulisMatrix();
+                    content+="Matriks:\n";
+                    content+=mat.tulisMatrixString();content+="\n\n";
+
+                    System.out.println("Matriks A: ");
+                    mat2.tulisMatrix();
+                    content+="Matriks A:\n";
+                    content+=mat2.tulisMatrixString();content+="\n\n";
+
+                    double[] B = new double[mat.getRow()];
+                    for (i=0 ; i<mat.getRow() ; i++)  //matriks B
+                    {
+                        B[i] = mat.getElmt(i, mat.getCol()-1);
+                    }
+
+
+                    System.out.println("Matriks A^-I: ");
+                    mat2 = mat2.inverse();
+                    mat2.tulisMatrix();
+                    content+="Matriks A-I:\n";
+                    content+=mat2.tulisMatrixString();content+="\n\n";
+
+                    System.out.println("Matriks B: ");
+                    content+="Matriks B: \n";
+                    for (i = 0;i<B.length;i++)
+                    {
+                        System.out.print(B[i]);
+                        content+=B[i];
+                        if (i!=B.length-1)
+                        {
+                            System.out.print(" ");
+                            content+=" ";
+                        }
+                    }
+                    System.out.println("\n");
+                    content+="\n\n";
+                    
+                    System.out.println("Solusi: ");
+                    content += "Solusi: \n";
+                    for (i=0 ; i<solusi.length ; i++)
+                    {
+                        content += ("X"+(i+1)+" = " + solusi[i]+"\n");
+                        System.out.println("X"+(i+1)+" = " + solusi[i]);
+                    }
+                    file.write(content);
+                }
+
+                else
+                {
+                    System.out.println("Tidak bisa menggunakan metode matriks balikan");
+                    System.out.println("Determinan = 0");
+                }
+            }
+
+            else
+            {
+                System.out.println("Tidak bisa menggunakan metode matriks balikan");
+                System.out.println("Matriks haruslah N x M dengan N = M-1");
+            }
+        }
+
+        else
+        {
+            System.out.println("Invalid input");
+        }
+    }
+
     public static void Interpolasi(){
         int c;
         showInputType();
         showCommand();
         Scanner sc = new Scanner(System.in);
         c = sc.nextInt();
-        if (c==1){
-            Save file = new Save("regresi.txt");
+        if (c==1){      //keyboard input - interpolasi
+            Save file = new Save("interpolasi.txt");
             String content = "";
 
-            Scanner scanner = new Scanner(System.in);
-            int n = scanner.nextInt();
-            scanner.close();
+            System.out.print("Masukkan jumlah titik: ");
+            int n = sc.nextInt();
+            
 
             Points points = new Points(n);
             points.readPoints();
-            points.writePointstoFile(content);
+            content = points.writePointstoFile(content);
+            file.write(content);
 
             Matrix interMatrix;
             interMatrix = points.toMatrix();
@@ -505,6 +702,24 @@ public class Main {
             Gauss.ElimMaju(interMatrix);
             Gauss.GaussSolver(interMatrix, "polinom", content, file);
 
+        }
+
+        else if (c==2) //file input - interpolasi
+        {
+            Points points = new Points("..\\test\\points.txt");
+            Save file = new Save("interpolasi.txt");
+            String content = "";
+            content = points.writePointstoFile(content);
+            Matrix interMatrix;
+            interMatrix = points.toMatrix();
+
+            Gauss.ElimMaju(interMatrix);
+            Gauss.GaussSolver(interMatrix, "polinom", content, file);
+        }
+
+        else
+        {
+            System.out.println("Invalid input");
         }
     }
 

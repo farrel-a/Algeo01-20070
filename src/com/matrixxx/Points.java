@@ -47,14 +47,18 @@ public class Points {
         }
     }
 
-    public void writePointstoFile(String toFile){
+    public String writePointstoFile(String toFile){
         for (int i = 0 ; i<this.points.length ; i++)
         {
             String x = String.format("%.3f", getElmt(i).getX()); //3 decimals floating point
             String y = String.format("%.3f", getElmt(i).getY());
-            toFile +="("+ x + " , " + y+")\n";
+            toFile += x + " " + y;
+            if (i!=this.points.length-1)
+            {
+                toFile+="\n";
+            }
         }
-
+        return toFile;
     }
 
 

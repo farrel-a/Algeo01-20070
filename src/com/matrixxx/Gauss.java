@@ -103,7 +103,7 @@ public class Gauss {
             }
             else if (write == "polinom"){
                 System.out.println("Polinom interpolasi yang melewati titik-titik tersebut adalah:");
-                toFile += "Polinom interpolasi yang melewati titik-titik tersebut adalah:\n";
+                toFile += "\nPolinom interpolasi yang melewati titik-titik tersebut adalah:\n";
                 System.out.print("P(x) = ");
                 toFile += "P(x) = ";
                 String tanda;
@@ -145,7 +145,7 @@ public class Gauss {
                 while (flag){
                     double sum = 0;
                     System.out.print("Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ");
-                    toFile += "Masukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ";
+                    toFile += "\nMasukkan nilai X yang ingin ditaksir (masukkan 999.999 jika ingin keluar): ";
                     solve = sc.nextDouble();
                     toFile += solve + "\n";
                     if (solve == 999.999){
